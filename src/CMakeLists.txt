@@ -59,6 +59,7 @@ set(signal_protocol_SRCS
 	fingerprint.h
 	device_consistency.c
 	device_consistency.h
+	Codistan/test_protocol.c
 )
 
 add_subdirectory(curve25519)
@@ -113,3 +114,8 @@ configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/libsignal-protocol-c.pc.in
 		${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.pc @ONLY)
 
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.pc DESTINATION "${INSTALL_PKGCONFIG_DIR}")
+
+# Codistan
+add_executable(hello Codistan/hello_libsignal.c)
+add_executable(codistan_test Codistan/test_protocol.c)
+target_link_libraries(codistan_test signal-protocol-c m)
