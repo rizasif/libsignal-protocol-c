@@ -1,6 +1,10 @@
 enable_testing()
 find_library(M_LIB m)
+
+# Setting for check
+set(CMAKE_MODULE_PATH "/usr/local/lib/;${CMAKE_MODULE_PATH}")
 find_package(Check REQUIRED)
+
 IF(NOT(APPLE AND ${CMAKE_SYSTEM_NAME} MATCHES "Darwin"))
   find_package(OpenSSL 1.0 REQUIRED)
 ENDIF()
