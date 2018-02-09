@@ -1,3 +1,5 @@
+set(CMAKE_CXX_FLAGS "-pthread")
+
 if(BUILD_SHARED_LIBS)
 	find_library(M_LIB m)
 endif()
@@ -9,6 +11,15 @@ include_directories(
 	curve25519/ed25519/sha512
 	curve25519/ed25519
 	curve25519
+)
+
+set(LIBS ${LIBS}
+	${M_LIB}
+	${CHECK_LDFLAGS}
+	${OPENSSL_LIBRARIES}
+	${CMAKE_THREAD_LIBS_INIT}
+	${CMAKE_DL_LIBS}
+	signal-protocol-c
 )
 
 set(protobuf_SRCS
@@ -118,4 +129,4 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.pc DESTINATION "$
 # Codistan
 add_executable(hello Codistan/hello_libsignal.c)
 add_executable(codistan_test Codistan/test_protocol.c)
-target_link_libraries(codistan_test signal-protocol-c m)
+target_link_libraries(codistan_test signal-protocol-c m ${LIBS})
