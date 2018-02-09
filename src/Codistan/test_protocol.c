@@ -152,11 +152,11 @@ void Initialize(){
     if(result != 0)
         printf("Context Creation Failed\n");
 
-    result = signal_context_set_crypto_provider(global_context, &provider);
+    result = signal_context_set_crypto_provider(&global_context, &provider);
     if(result != 0)
         printf("Setting Crypto Provider Failed\n");
 
-    result = signal_context_set_locking_functions(global_context, lock_func, unlock_func);
+    result = signal_context_set_locking_functions(&global_context, lock_func, unlock_func);
     if(result != 0)
         printf("Setting Lock Functions Failed\n");
 
@@ -167,7 +167,7 @@ void Initialize(){
 }
 
 void ClientInstall(){
-    signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, global_context);
+    signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, &global_context);
     printf("Identity Key Pair Generated");
 
     // signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
