@@ -13,8 +13,26 @@ ratchet_identity_key_pair *identity_key_pair;
 uint32_t registration_id;
 signal_protocol_key_helper_pre_key_list_node *pre_keys_head;
 session_signed_pre_key *signed_pre_key;
+signal_crypto_provider provider;
 
 int user_id;
+
+void intialize_crypto_provider(){
+    provider = {
+            .random_func = signal_crypto_random,
+            .hmac_sha256_init_func = signal_hmac_sha256_init,
+            .hmac_sha256_update_func = signal_hmac_sha256_update,
+            .hmac_sha256_final_func = signal_hmac_sha256_final,
+            .hmac_sha256_cleanup_func = signal_hmac_sha256_cleanup,
+            .sha512_digest_init_func = signal_sha512_digest_init,
+            .sha512_digest_update_func = signal_sha512_digest_update,
+            .sha512_digest_final_func = signal_sha512_digest_final,
+            .sha512_digest_cleanup_func = signal_sha512_digest_cleanup,
+            .encrypt_func = signal_encrypt,
+            .decrypt_func = signal_decrypt,
+            .user_data = user_id
+    };
+}
 
 void VoidCallBack(void){
     printf("VoidCallback Initiated\n");
@@ -41,46 +59,7 @@ unsigned long long getCurrentEpochTime(){
     return millisecondsSinceEpoch;
 }
 
-/* Test crypto provider */
-int test_random_generator(uint8_t *data, size_t len, void *user_data){return 0;}
-int test_hmac_sha256_init(void **hmac_context, const uint8_t *key, size_t key_len, void *user_data){return 0;}
-int test_hmac_sha256_update(void *hmac_context, const uint8_t *data, size_t data_len, void *user_data){return 0;}
-int test_hmac_sha256_final(void *hmac_context, signal_buffer **output, void *user_data){return 0;}
-void test_hmac_sha256_cleanup(void *hmac_context, void *user_data){}
-int test_sha512_digest_init(void **digest_context, void *user_data){return 0;}
-int test_sha512_digest_update(void *digest_context, const uint8_t *data, size_t data_len, void *user_data){return 0;}
-int test_sha512_digest_final(void *digest_context, signal_buffer **output, void *user_data){return 0;}
-void test_sha512_digest_cleanup(void *digest_context, void *user_data){}
 
-int test_encrypt(signal_buffer **output,
-        int cipher,
-        const uint8_t *key, size_t key_len,
-        const uint8_t *iv, size_t iv_len,
-        const uint8_t *plaintext, size_t plaintext_len,
-        void *user_data){return 0;}
-int test_decrypt(signal_buffer **output,
-        int cipher,
-        const uint8_t *key, size_t key_len,
-        const uint8_t *iv, size_t iv_len,
-        const uint8_t *ciphertext, size_t ciphertext_len,
-        void *user_data){return 0;}
-
-// signal_crypto_provider provider = {
-//             .random_func = test_random_generator,
-//             .hmac_sha256_init_func = test_hmac_sha256_init,
-//             .hmac_sha256_update_func = test_hmac_sha256_update,
-//             .hmac_sha256_final_func = test_hmac_sha256_final,
-//             .hmac_sha256_cleanup_func = test_hmac_sha256_cleanup,
-//             .sha512_digest_init_func = test_sha512_digest_init,
-//             .sha512_digest_update_func = test_sha512_digest_update,
-//             .sha512_digest_final_func = test_sha512_digest_final,
-//             .sha512_digest_cleanup_func = test_sha512_digest_cleanup,
-//             .encrypt_func = test_encrypt,
-//             .decrypt_func = test_decrypt,
-//             .user_data = 0
-//     };
-
-/* End Test crypto provider */
 
 /*Start Session Store*/
 
@@ -162,25 +141,11 @@ void Initialize(){
     int result = 1;
 
     user_id = 1992;
+    intialize_crypto_provider();
 
     result = signal_context_create(&global_context, &user_id);
     if(result != 0)
         printf("Context Creation Failed\n");
-
-    signal_crypto_provider provider = {
-            .random_func = signal_crypto_random,
-            .hmac_sha256_init_func = signal_hmac_sha256_init,
-            .hmac_sha256_update_func = signal_hmac_sha256_update,
-            .hmac_sha256_final_func = signal_hmac_sha256_final,
-            .hmac_sha256_cleanup_func = signal_hmac_sha256_cleanup,
-            .sha512_digest_init_func = signal_sha512_digest_init,
-            .sha512_digest_update_func = signal_sha512_digest_update,
-            .sha512_digest_final_func = signal_sha512_digest_final,
-            .sha512_digest_cleanup_func = signal_sha512_digest_cleanup,
-            .encrypt_func = signal_encrypt,
-            .decrypt_func = signal_decrypt,
-            .user_data = user_id
-    };
 
     result = signal_context_set_crypto_provider(global_context, &provider);
     if(result != 0)
