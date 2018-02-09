@@ -61,8 +61,6 @@ unsigned long long getCurrentEpochTime(){
     return millisecondsSinceEpoch;
 }
 
-
-
 /*Start Session Store*/
 
 int test_session_store_load_session(signal_buffer **record, const signal_protocol_address *address, void *user_data){return 0;}
@@ -164,13 +162,10 @@ void Initialize(){
         printf("Initialization Completed With Erros\n");
     else
         printf("Initialization Completed Successfully\n");
-
-    signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, &global_context);
-    printf("Identity Key Pair Generated");
 }
 
 void ClientInstall(){
-    signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, &global_context);
+    signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, global_context);
     printf("Identity Key Pair Generated");
 
     // signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
@@ -191,7 +186,7 @@ int main(void)
 
     Initialize();
     
-    // ClientInstall();
+    ClientInstall();
 
     // /* Create the data store context, and add all the callbacks to it */
     // signal_protocol_store_context *store_context;
