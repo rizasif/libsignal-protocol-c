@@ -13,6 +13,8 @@ uint32_t registration_id;
 signal_protocol_key_helper_pre_key_list_node *pre_keys_head;
 session_signed_pre_key *signed_pre_key;
 
+int user_id;
+
 void VoidCallBack(void){
     printf("VoidCallback Initiated\n");
 }
@@ -62,20 +64,36 @@ int test_decrypt(signal_buffer **output,
         const uint8_t *ciphertext, size_t ciphertext_len,
         void *user_data){return 0;}
 
+// signal_crypto_provider provider = {
+//             .random_func = test_random_generator,
+//             .hmac_sha256_init_func = test_hmac_sha256_init,
+//             .hmac_sha256_update_func = test_hmac_sha256_update,
+//             .hmac_sha256_final_func = test_hmac_sha256_final,
+//             .hmac_sha256_cleanup_func = test_hmac_sha256_cleanup,
+//             .sha512_digest_init_func = test_sha512_digest_init,
+//             .sha512_digest_update_func = test_sha512_digest_update,
+//             .sha512_digest_final_func = test_sha512_digest_final,
+//             .sha512_digest_cleanup_func = test_sha512_digest_cleanup,
+//             .encrypt_func = test_encrypt,
+//             .decrypt_func = test_decrypt,
+//             .user_data = 0
+//     };
+
 signal_crypto_provider provider = {
-            .random_func = test_random_generator,
-            .hmac_sha256_init_func = test_hmac_sha256_init,
-            .hmac_sha256_update_func = test_hmac_sha256_update,
-            .hmac_sha256_final_func = test_hmac_sha256_final,
-            .hmac_sha256_cleanup_func = test_hmac_sha256_cleanup,
-            .sha512_digest_init_func = test_sha512_digest_init,
-            .sha512_digest_update_func = test_sha512_digest_update,
-            .sha512_digest_final_func = test_sha512_digest_final,
-            .sha512_digest_cleanup_func = test_sha512_digest_cleanup,
-            .encrypt_func = test_encrypt,
-            .decrypt_func = test_decrypt,
-            .user_data = 0
+            .random_func = signal_crypto_random,
+            .hmac_sha256_init_func = signal_hmac_sha256_init,
+            .hmac_sha256_update_func = signal_hmac_sha256_update,
+            .hmac_sha256_final_func = signal_hmac_sha256_final,
+            .hmac_sha256_cleanup_func = signal_hmac_sha256_cleanup,
+            .sha512_digest_init_func = signal_sha512_digest_init,
+            .sha512_digest_update_func = signal_sha512_digest_update,
+            .sha512_digest_final_func = signal_sha512_digest_final,
+            .sha512_digest_cleanup_func = signal_sha512_digest_cleanup,
+            .encrypt_func = signal_encrypt,
+            .decrypt_func = signal_decrypt,
+            .user_data = user_id
     };
+
 /* End Test crypto provider */
 
 /*Start Session Store*/
@@ -153,12 +171,13 @@ signal_protocol_identity_key_store identity_key_store = {
 /*End Identity Key Store*/
 
 /*Main Functions Start*/
+
 void Initialize(){
     int result = 1;
 
-    int uData = 0;
-    // result = signal_context_create(&global_context, &VoidCallBack);
-    result = signal_context_create(&global_context, &uData);
+    user_id = 1992;
+
+    result = signal_context_create(&global_context, &user_id);
     if(result != 0)
         printf("Context Creation Failed\n");
 
@@ -193,22 +212,23 @@ int main(void)
     printf("Starting Protocol Test\n");
 
     Initialize();
-    ClientInstall();
+    
+    // ClientInstall();
 
-    /* Create the data store context, and add all the callbacks to it */
-    signal_protocol_store_context *store_context;
-    signal_protocol_store_context_create(&store_context, global_context);
-    signal_protocol_store_context_set_session_store(store_context, &session_store);
-    signal_protocol_store_context_set_pre_key_store(store_context, &pre_key_store);
-    signal_protocol_store_context_set_signed_pre_key_store(store_context, &signed_pre_key_store);
-    signal_protocol_store_context_set_identity_key_store(store_context, &identity_key_store);
+    // /* Create the data store context, and add all the callbacks to it */
+    // signal_protocol_store_context *store_context;
+    // signal_protocol_store_context_create(&store_context, global_context);
+    // signal_protocol_store_context_set_session_store(store_context, &session_store);
+    // signal_protocol_store_context_set_pre_key_store(store_context, &pre_key_store);
+    // signal_protocol_store_context_set_signed_pre_key_store(store_context, &signed_pre_key_store);
+    // signal_protocol_store_context_set_identity_key_store(store_context, &identity_key_store);
 
-    /* Instantiate a session_builder for a recipient address. */
-    signal_protocol_address address = {
-        "+14159998888", 12, 1
-    };
-    session_builder *builder;
-    session_builder_create(&builder, store_context, &address, global_context);
+    // /* Instantiate a session_builder for a recipient address. */
+    // signal_protocol_address address = {
+    //     "+14159998888", 12, 1
+    // };
+    // session_builder *builder;
+    // session_builder_create(&builder, store_context, &address, global_context);
 
     /*Server Job*/
     
