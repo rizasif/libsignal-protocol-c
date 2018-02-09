@@ -161,14 +161,18 @@ void Initialize(){
         printf("Setting Lock Functions Failed\n");
 
     if(result != 0)
-        printf("Some initialization procedures returned errors!");
+        printf("Initialization Completed With Erros");
+    else
+        printf("Initialization Completed Successfully");
 }
 
 void ClientInstall(){
     signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, global_context);
-    signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
-    signal_protocol_key_helper_generate_pre_keys(&pre_keys_head, 0, 100, global_context);
-    signal_protocol_key_helper_generate_signed_pre_key(&signed_pre_key, identity_key_pair, 5, getCurrentEpochTime(), global_context);
+    printf("Identity Key Pair Generated");
+
+    // signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
+    // signal_protocol_key_helper_generate_pre_keys(&pre_keys_head, 0, 100, global_context);
+    // signal_protocol_key_helper_generate_signed_pre_key(&signed_pre_key, identity_key_pair, 5, getCurrentEpochTime(), global_context);
 
     /* Store identity_key_pair somewhere durable and safe. */
     /* Store registration_id somewhere durable and safe. */
