@@ -140,7 +140,7 @@ signal_protocol_identity_key_store identity_key_store = {
 /*Main Functions Start*/
 
 void Initialize(){
-    int result = 1;
+    int result = 1; //flag for error check
 
     user_id = 1992;
     intialize_crypto_provider();
@@ -184,7 +184,7 @@ int main(void)
 
     Initialize();
     
-    // ClientInstall();
+    ClientInstall();
 
     // /* Create the data store context, and add all the callbacks to it */
     // signal_protocol_store_context *store_context;
