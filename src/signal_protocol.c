@@ -409,7 +409,6 @@ int signal_context_create(signal_context **context, void *user_data)
 int signal_context_set_crypto_provider(signal_context *context, const signal_crypto_provider *crypto_provider)
 {
     assert(context);
-    assert(context->crypto_provider.random_func);
     if(!crypto_provider
             || !crypto_provider->hmac_sha256_init_func
             || !crypto_provider->hmac_sha256_update_func
@@ -458,7 +457,7 @@ void signal_context_destroy(signal_context *context)
 int signal_crypto_random(signal_context *context, uint8_t *data, size_t len)
 {
     assert(context);
-    assert(context->crypto_provider.random_func);
+    // assert(context->crypto_provider.random_func);
     return context->crypto_provider.random_func(data, len, context->crypto_provider.user_data);
 }
 
