@@ -156,7 +156,9 @@ signal_protocol_identity_key_store identity_key_store = {
 void Initialize(){
     int result = 1;
 
-    result = signal_context_create(&global_context, &VoidCallBack);
+    int uData = 0;
+    // result = signal_context_create(&global_context, &VoidCallBack);
+    result = signal_context_create(&global_context, &uData);
     if(result != 0)
         printf("Context Creation Failed\n");
 
@@ -167,6 +169,9 @@ void Initialize(){
     result = signal_context_set_locking_functions(global_context, LockCallBack, UnLockCallBack);
     if(result != 0)
         printf("Setting Lock Functions Failed\n");
+
+    if(result != 0)
+        printf("Some initialization procedures returned errors!");
 }
 
 void ClientInstall(){
