@@ -165,7 +165,7 @@ void Initialize(){
 }
 
 void ClientInstall(){
-    signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, global_context);
+    signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, &global_context);
     printf("Identity Key Pair Generated");
 
     // signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
