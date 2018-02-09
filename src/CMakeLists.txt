@@ -13,6 +13,7 @@ include_directories(
 	curve25519
 )
 
+find_package(Threads)
 set(LIBS ${LIBS}
 	${M_LIB}
 	${CHECK_LDFLAGS}
