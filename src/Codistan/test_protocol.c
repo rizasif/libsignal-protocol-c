@@ -10,7 +10,7 @@
 #include "signal_protocol_internal.h"
 
 // Signal Protocol
-signal_context global_context;
+signal_context *global_context;
 ratchet_identity_key_pair *identity_key_pair;
 uint32_t registration_id;
 signal_protocol_key_helper_pre_key_list_node *pre_keys_head;
@@ -164,6 +164,9 @@ void Initialize(){
         printf("Initialization Completed With Erros\n");
     else
         printf("Initialization Completed Successfully\n");
+
+    signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, &global_context);
+    printf("Identity Key Pair Generated");
 }
 
 void ClientInstall(){
@@ -188,7 +191,7 @@ int main(void)
 
     Initialize();
     
-    ClientInstall();
+    // ClientInstall();
 
     // /* Create the data store context, and add all the callbacks to it */
     // signal_protocol_store_context *store_context;
