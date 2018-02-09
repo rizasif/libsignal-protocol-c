@@ -161,9 +161,9 @@ void Initialize(){
         printf("Setting Lock Functions Failed\n");
 
     if(result != 0)
-        printf("Initialization Completed With Erros");
+        printf("Initialization Completed With Erros\n");
     else
-        printf("Initialization Completed Successfully");
+        printf("Initialization Completed Successfully\n");
 }
 
 void ClientInstall(){
@@ -188,7 +188,7 @@ int main(void)
 
     Initialize();
     
-    ClientInstall();
+    // ClientInstall();
 
     // /* Create the data store context, and add all the callbacks to it */
     // signal_protocol_store_context *store_context;
