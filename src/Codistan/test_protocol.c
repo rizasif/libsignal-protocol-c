@@ -4,10 +4,12 @@
 #include <stdio.h>
 #include <check.h>
 #include <sys/time.h>
+#include <pthread.h>
 
 #include "signal_protocol.h"
 #include "signal_protocol_internal.h"
 
+// Signal Protocol
 signal_context *global_context;
 ratchet_identity_key_pair *identity_key_pair;
 uint32_t registration_id;
@@ -15,7 +17,11 @@ signal_protocol_key_helper_pre_key_list_node *pre_keys_head;
 session_signed_pre_key *signed_pre_key;
 signal_crypto_provider provider;
 
+// Customizations
 int user_id;
+
+pthread_mutex_t global_mutex;
+pthread_mutexattr_t global_mutex_attr;
 
 void intialize_crypto_provider(){
     provider.random_func = signal_crypto_random;
@@ -32,16 +38,14 @@ void intialize_crypto_provider(){
     provider.user_data = user_id;
 }
 
-void VoidCallBack(void){
-    printf("VoidCallback Initiated\n");
+void lock_func(void *user_data)
+{
+    pthread_mutex_lock(&global_mutex);
 }
 
-void LockCallBack(){
-    printf("Lock Callback Initiated\n");
-}
-
-void UnLockCallBack(){
-    printf("Unlock Callback Initiated\n");
+void unlock_func(void *user_data)
+{
+    pthread_mutex_unlock(&global_mutex);
 }
 
 unsigned long long getCurrentEpochTime(){
@@ -140,6 +144,9 @@ void Initialize(){
 
     user_id = 1992;
     intialize_crypto_provider();
+    pthread_mutexattr_init(&global_mutex_attr);
+    pthread_mutexattr_settype(&global_mutex_attr, PTHREAD_MUTEX_RECURSIVE);
+    pthread_mutex_init(&global_mutex, &global_mutex_attr);
 
     result = signal_context_create(&global_context, &user_id);
     if(result != 0)
@@ -149,7 +156,7 @@ void Initialize(){
     if(result != 0)
         printf("Setting Crypto Provider Failed\n");
 
-    result = signal_context_set_locking_functions(global_context, LockCallBack, UnLockCallBack);
+    result = signal_context_set_locking_functions(global_context, lock_func, unlock_func);
     if(result != 0)
         printf("Setting Lock Functions Failed\n");
 
