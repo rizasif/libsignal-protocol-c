@@ -144,9 +144,9 @@ void Initialize(){
 
     user_id = 1992;
     intialize_crypto_provider();
-    pthread_mutexattr_init(&global_mutex_attr);
-    pthread_mutexattr_settype(&global_mutex_attr, PTHREAD_MUTEX_RECURSIVE);
-    pthread_mutex_init(&global_mutex, &global_mutex_attr);
+    // pthread_mutexattr_init(&global_mutex_attr);
+    // pthread_mutexattr_settype(&global_mutex_attr, PTHREAD_MUTEX_RECURSIVE);
+    // pthread_mutex_init(&global_mutex, &global_mutex_attr);
 
     result = signal_context_create(&global_context, &user_id);
     if(result != 0)
