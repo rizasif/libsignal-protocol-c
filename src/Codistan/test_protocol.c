@@ -6,6 +6,7 @@
 #include <sys/time.h>
 
 #include "signal_protocol.h"
+#include "signal_protocol_internal.h"
 
 signal_context *global_context;
 ratchet_identity_key_pair *identity_key_pair;
