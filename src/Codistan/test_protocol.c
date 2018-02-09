@@ -10,7 +10,7 @@
 #include "signal_protocol_internal.h"
 
 // Signal Protocol
-signal_context *global_context;
+signal_context global_context;
 ratchet_identity_key_pair *identity_key_pair;
 uint32_t registration_id;
 signal_protocol_key_helper_pre_key_list_node *pre_keys_head;

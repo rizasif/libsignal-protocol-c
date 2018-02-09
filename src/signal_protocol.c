@@ -457,7 +457,7 @@ void signal_context_destroy(signal_context *context)
 int signal_crypto_random(signal_context *context, uint8_t *data, size_t len)
 {
     assert(context);
-    // assert(context->crypto_provider.random_func);
+    assert(context->crypto_provider.random_func);
     return context->crypto_provider.random_func(data, len, context->crypto_provider.user_data);
 }
 
