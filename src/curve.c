@@ -293,11 +293,8 @@ int curve_generate_private_key(signal_context *context, ec_private_key **private
     }
 
     SIGNAL_INIT(key, ec_private_key_destroy);
-    assert(key->data);
 
-    printf("DEBUG: Calling Random Function\n");
     result = signal_crypto_random(context, key->data, DJB_KEY_LEN);
-    printf("DEBUG: Random Function Call Complete\n");
     if(result < 0) {
         goto complete;
     }

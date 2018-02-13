@@ -24,9 +24,7 @@ int signal_protocol_key_helper_generate_identity_key_pair(ratchet_identity_key_p
 
     assert(global_context);
 
-    printf("DEBUG: Generating Key Pair\n");
     result = curve_generate_key_pair(global_context, &ec_pair);
-    printf("DEBUG: Generating Key Pair Successful\n");
     if(result < 0) {
         goto complete;
     }
