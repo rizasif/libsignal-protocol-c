@@ -3,7 +3,7 @@
 
 #include "signal_protocol.h"
 
-int signal_protocol_helper_signal_crypto_random(signal_context *context, uint8_t *data, size_t len);
+int signal_protocol_helper_signal_crypto_random(uint8_t *data, size_t len, void *user_data);
 
 int signal_protocol_helper_signal_hmac_sha256_init(signal_context *context, void **hmac_context, const uint8_t *key, size_t key_len);
 int signal_protocol_helper_signal_hmac_sha256_update(signal_context *context, void *hmac_context, const uint8_t *data, size_t data_len);
