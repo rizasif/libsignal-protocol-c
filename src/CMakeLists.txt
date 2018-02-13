@@ -4,6 +4,10 @@ if(BUILD_SHARED_LIBS)
 	find_library(M_LIB m)
 endif()
 
+IF(NOT(APPLE AND ${CMAKE_SYSTEM_NAME} MATCHES "Darwin"))
+  find_package(OpenSSL 1.0 REQUIRED)
+ENDIF()
+
 include_directories(
 	.
 	curve25519/ed25519/nacl_includes
