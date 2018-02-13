@@ -134,11 +134,11 @@ void Initialize(){
     if(result != 0)
         printf("Context Creation Failed\n");
 
-    result = signal_context_set_crypto_provider(&global_context, &provider);
+    result = signal_context_set_crypto_provider(global_context, &provider);
     if(result != 0)
         printf("Setting Crypto Provider Failed\n");
 
-    result = signal_context_set_locking_functions(&global_context, lock_func, unlock_func);
+    result = signal_context_set_locking_functions(global_context, lock_func, unlock_func);
     if(result != 0)
         printf("Setting Lock Functions Failed\n");
 
@@ -172,7 +172,7 @@ int main(void)
 
     Initialize();
     
-    // ClientInstall();
+    ClientInstall();
 
     // /* Create the data store context, and add all the callbacks to it */
     // signal_protocol_store_context *store_context;
