@@ -1,6 +1,4 @@
-#include "signal_protocol_overrides.h"
-
-#include "signal_protocol_internal.h"
+#include "signal_protocol_helper.h"
 
 #include <openssl/opensslv.h>
 #include <openssl/evp.h>
@@ -10,7 +8,7 @@
 
 #include <stdio.h>
 
-int signal_crypto_random(signal_context *context, uint8_t *data, size_t len){
+int signal_protocol_helper_signal_crypto_random(signal_context *context, uint8_t *data, size_t len){
     if(RAND_bytes(data, len)) {
         return 0;
     }
@@ -19,7 +17,7 @@ int signal_crypto_random(signal_context *context, uint8_t *data, size_t len){
     }
 }
 
-int signal_hmac_sha256_init(signal_context *context, void **hmac_context, const uint8_t *key, size_t key_len){
+int signal_protocol_helper_signal_hmac_sha256_init(signal_context *context, void **hmac_context, const uint8_t *key, size_t key_len){
     #if OPENSSL_VERSION_NUMBER >= 0x1010000fL
     HMAC_CTX *ctx = HMAC_CTX_new();
     if(!ctx) {
@@ -42,13 +40,13 @@ int signal_hmac_sha256_init(signal_context *context, void **hmac_context, const 
     return 0;
 }
 
-int signal_hmac_sha256_update(signal_context *context, void *hmac_context, const uint8_t *data, size_t data_len){
+int signal_protocol_helper_signal_hmac_sha256_update(signal_context *context, void *hmac_context, const uint8_t *data, size_t data_len){
     HMAC_CTX *ctx = hmac_context;
     int result = HMAC_Update(ctx, data, data_len);
     return (result == 1) ? 0 : -1;
 }
 
-int signal_hmac_sha256_final(signal_context *context, void *hmac_context, signal_buffer **output){
+int signal_protocol_helper_signal_hmac_sha256_final(signal_context *context, void *hmac_context, signal_buffer **output){
     int result = 0;
     unsigned char md[EVP_MAX_MD_SIZE];
     unsigned int len = 0;
@@ -70,7 +68,7 @@ complete:
     return result;
 }
 
-void signal_hmac_sha256_cleanup(signal_context *context, void *hmac_context){
+void signal_protocol_helper_signal_hmac_sha256_cleanup(signal_context *context, void *hmac_context){
     if(hmac_context) {
         HMAC_CTX *ctx = hmac_context;
 #if OPENSSL_VERSION_NUMBER >= 0x1010000fL
@@ -109,7 +107,7 @@ const EVP_CIPHER *aes_cipher(int cipher, size_t key_len)
     return 0;
 }
 
-int signal_sha512_digest_init(signal_context *context, void **digest_context){
+int signal_protocol_helper_signal_sha512_digest_init(signal_context *context, void **digest_context){
     int result = 0;
     EVP_MD_CTX *ctx;
 
@@ -139,7 +137,7 @@ complete:
     return result;
 }
 
-int signal_sha512_digest_update(signal_context *context, void *digest_context, const uint8_t *data, size_t data_len){
+int signal_protocol_helper_signal_sha512_digest_update(signal_context *context, void *digest_context, const uint8_t *data, size_t data_len){
     EVP_MD_CTX *ctx = digest_context;
 
     int result = EVP_DigestUpdate(ctx, data, data_len);
@@ -147,7 +145,7 @@ int signal_sha512_digest_update(signal_context *context, void *digest_context, c
     return (result == 1) ? SG_SUCCESS : SG_ERR_UNKNOWN;
 }
 
-int signal_sha512_digest_final(signal_context *context, void *digest_context, signal_buffer **output){
+int signal_protocol_helper_signal_sha512_digest_final(signal_context *context, void *digest_context, signal_buffer **output){
     int result = 0;
     unsigned char md[EVP_MAX_MD_SIZE];
     unsigned int len = 0;
@@ -183,12 +181,12 @@ complete:
     return result;
 }
 
-void signal_sha512_digest_cleanup(signal_context *context, void *digest_context){
+void signal_protocol_helper_signal_sha512_digest_cleanup(signal_context *context, void *digest_context){
     EVP_MD_CTX *ctx = digest_context;
     EVP_MD_CTX_destroy(ctx);
 }
 
-int signal_encrypt(signal_context *context,
+int signal_protocol_helper_signal_encrypt(signal_context *context,
         signal_buffer **output,
         int cipher,
         const uint8_t *key, size_t key_len,
@@ -287,7 +285,7 @@ complete:
     return result;
 }
 
-int signal_decrypt(signal_context *context,
+int signal_protocol_helper_signal_decrypt(signal_context *context,
         signal_buffer **output,
         int cipher,
         const uint8_t *key, size_t key_len,
@@ -386,17 +384,17 @@ complete:
     return result;
 }
 
-void intialize_crypto_provider(signal_crypto_provider *provider, int user_id){
-    provider->random_func = signal_crypto_random;
-    provider->hmac_sha256_init_func = signal_hmac_sha256_init;
-    provider->hmac_sha256_update_func = signal_hmac_sha256_update;
-    provider->hmac_sha256_final_func = signal_hmac_sha256_final;
-    provider->hmac_sha256_cleanup_func = signal_hmac_sha256_cleanup;
-    provider->sha512_digest_init_func = signal_sha512_digest_init;
-    provider->sha512_digest_update_func = signal_sha512_digest_update;
-    provider->sha512_digest_final_func = signal_sha512_digest_final;
-    provider->sha512_digest_cleanup_func = signal_sha512_digest_cleanup;
-    provider->encrypt_func = signal_encrypt;
-    provider->decrypt_func = signal_decrypt;
+void signal_protocol_helper_intialize_crypto_provider(signal_crypto_provider *provider, int user_id){
+    provider->random_func = signal_protocol_helper_signal_crypto_random;
+    provider->hmac_sha256_init_func = signal_protocol_helper_signal_hmac_sha256_init;
+    provider->hmac_sha256_update_func = signal_protocol_helper_signal_hmac_sha256_update;
+    provider->hmac_sha256_final_func = signal_protocol_helper_signal_hmac_sha256_final;
+    provider->hmac_sha256_cleanup_func = signal_protocol_helper_signal_hmac_sha256_cleanup;
+    provider->sha512_digest_init_func = signal_protocol_helper_signal_sha512_digest_init;
+    provider->sha512_digest_update_func = signal_protocol_helper_signal_sha512_digest_update;
+    provider->sha512_digest_final_func = signal_protocol_helper_signal_sha512_digest_final;
+    provider->sha512_digest_cleanup_func = signal_protocol_helper_signal_sha512_digest_cleanup;
+    provider->encrypt_func = signal_protocol_helper_signal_encrypt;
+    provider->decrypt_func = signal_protocol_helper_signal_decrypt;
     provider->user_data = user_id;
 }

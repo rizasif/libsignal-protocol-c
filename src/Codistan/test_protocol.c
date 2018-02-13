@@ -7,7 +7,7 @@
 #include <pthread.h>
 
 #include "signal_protocol.h"
-#include "signal_protocol_overrides.h"
+#include "signal_protocol_helper.h"
 
 // Signal Protocol
 signal_context *global_context;
@@ -140,7 +140,7 @@ signal_protocol_identity_key_store identity_key_store = {
 void Initialize(){
     int result = 1; //flag for error check
 
-    intialize_crypto_provider(&provider, user_id);
+    signal_protocol_helper_intialize_crypto_provider(&provider, user_id);
     pthread_mutexattr_init(&global_mutex_attr);
     pthread_mutexattr_settype(&global_mutex_attr, PTHREAD_MUTEX_RECURSIVE);
     pthread_mutex_init(&global_mutex, &global_mutex_attr);
