@@ -174,7 +174,7 @@ int main(void)
 
     Initialize();
     
-    // ClientInstall();
+    ClientInstall();
 
     // /* Create the data store context, and add all the callbacks to it */
     // signal_protocol_store_context *store_context;
