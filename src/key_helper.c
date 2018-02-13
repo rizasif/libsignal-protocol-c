@@ -17,7 +17,7 @@ struct signal_protocol_key_helper_pre_key_list_node
 int signal_protocol_key_helper_generate_identity_key_pair(ratchet_identity_key_pair **key_pair, signal_context *global_context)
 {
     printf("DEBUG: in key_pair function");
-    
+
     int result = 0;
     ratchet_identity_key_pair *result_pair = 0;
     ec_key_pair *ec_pair = 0;
@@ -26,9 +26,9 @@ int signal_protocol_key_helper_generate_identity_key_pair(ratchet_identity_key_p
 
     assert(global_context);
 
-    printf("DEBUG: Generating Key Pair");
+    printf("DEBUG: Generating Key Pair\n");
     result = curve_generate_key_pair(global_context, &ec_pair);
-    printf("DEBUG: Generating Key Pair Successful");
+    printf("DEBUG: Generating Key Pair Successful\n");
     if(result < 0) {
         goto complete;
     }
