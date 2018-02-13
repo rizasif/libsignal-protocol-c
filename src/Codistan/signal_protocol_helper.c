@@ -11,9 +11,11 @@
 int signal_protocol_helper_signal_crypto_random(signal_context *context, uint8_t *data, size_t len){
     printf("in Helper Random Function\n");
     if(RAND_bytes(data, len)) {
+        printf("in Helper Random Function: Returning 0\n");
         return 0;
     }
     else {
+        printf("in Helper Random Function: Returning Error\n");
         return SG_ERR_UNKNOWN;
     }
 }
