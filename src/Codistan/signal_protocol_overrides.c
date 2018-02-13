@@ -311,17 +311,17 @@ complete:
     return result;
 }
 
-void intialize_crypto_provider(signal_crypto_provider provider, int user_id){
-    provider.random_func = signal_crypto_random;
-    provider.hmac_sha256_init_func = signal_hmac_sha256_init;
-    provider.hmac_sha256_update_func = signal_hmac_sha256_update;
-    provider.hmac_sha256_final_func = signal_hmac_sha256_final;
-    provider.hmac_sha256_cleanup_func = signal_hmac_sha256_cleanup;
-    provider.sha512_digest_init_func = signal_sha512_digest_init;
-    provider.sha512_digest_update_func = signal_sha512_digest_update;
-    provider.sha512_digest_final_func = signal_sha512_digest_final;
-    provider.sha512_digest_cleanup_func = signal_sha512_digest_cleanup;
-    provider.encrypt_func = signal_encrypt;
-    provider.decrypt_func = signal_decrypt;
-    provider.user_data = user_id;
+void intialize_crypto_provider(*signal_crypto_provider provider, int user_id){
+    provider->random_func = signal_crypto_random;
+    provider->hmac_sha256_init_func = signal_hmac_sha256_init;
+    provider->hmac_sha256_update_func = signal_hmac_sha256_update;
+    provider->hmac_sha256_final_func = signal_hmac_sha256_final;
+    provider->hmac_sha256_cleanup_func = signal_hmac_sha256_cleanup;
+    provider->sha512_digest_init_func = signal_sha512_digest_init;
+    provider->sha512_digest_update_func = signal_sha512_digest_update;
+    provider->sha512_digest_final_func = signal_sha512_digest_final;
+    provider->sha512_digest_cleanup_func = signal_sha512_digest_cleanup;
+    provider->encrypt_func = signal_encrypt;
+    provider->decrypt_func = signal_decrypt;
+    provider->user_data = user_id;
 }
