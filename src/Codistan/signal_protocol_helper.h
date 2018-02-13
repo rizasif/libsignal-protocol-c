@@ -30,6 +30,6 @@ int signal_protocol_helper_signal_decrypt(signal_context *context,
         const uint8_t *iv, size_t iv_len,
         const uint8_t *ciphertext, size_t ciphertext_len);
 
-void signal_protocol_helper_intialize_crypto_provider(signal_crypto_provider *provider, int user_id);
+void signal_protocol_helper_intialize_crypto_provider(signal_crypto_provider **provider, int user_id);
 
 #endif

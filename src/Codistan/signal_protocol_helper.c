@@ -384,7 +384,7 @@ complete:
     return result;
 }
 
-void signal_protocol_helper_intialize_crypto_provider(signal_crypto_provider *provider, int user_id){
+void signal_protocol_helper_intialize_crypto_provider(signal_crypto_provider **provider, int user_id){
     provider->random_func = signal_protocol_helper_signal_crypto_random;
     provider->hmac_sha256_init_func = signal_protocol_helper_signal_hmac_sha256_init;
     provider->hmac_sha256_update_func = signal_protocol_helper_signal_hmac_sha256_update;
