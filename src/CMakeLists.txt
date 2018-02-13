@@ -72,7 +72,19 @@ set(signal_protocol_SRCS
 	device_consistency.c
 	device_consistency.h
 	Codistan/test_protocol.c
+	Codistan/signal_protocol_overrides.c
+	Codistan/signal_protocol_overrides.h
 )
+
+#set(codistan_src
+#	Codistan/test_protocol.c
+#	Codistan/signal_protocol_overrides.c
+#	Codistan/signal_protocol_overrides.h
+#)
+
+#add_library(codistan_lib
+#	${codistan_src}
+#)
 
 add_subdirectory(curve25519)
 add_subdirectory(protobuf-c)

@@ -7,7 +7,7 @@
 #include <pthread.h>
 
 #include "signal_protocol.h"
-#include "signal_protocol_internal.h"
+#include "signal_protocol_overrides.h"
 
 // Signal Protocol
 signal_context *global_context;
@@ -23,20 +23,20 @@ int user_id;
 pthread_mutex_t global_mutex;
 pthread_mutexattr_t global_mutex_attr;
 
-void intialize_crypto_provider(){
-    provider.random_func = signal_crypto_random;
-    provider.hmac_sha256_init_func = signal_hmac_sha256_init;
-    provider.hmac_sha256_update_func = signal_hmac_sha256_update;
-    provider.hmac_sha256_final_func = signal_hmac_sha256_final;
-    provider.hmac_sha256_cleanup_func = signal_hmac_sha256_cleanup;
-    provider.sha512_digest_init_func = signal_sha512_digest_init;
-    provider.sha512_digest_update_func = signal_sha512_digest_update;
-    provider.sha512_digest_final_func = signal_sha512_digest_final;
-    provider.sha512_digest_cleanup_func = signal_sha512_digest_cleanup;
-    provider.encrypt_func = signal_encrypt;
-    provider.decrypt_func = signal_decrypt;
-    provider.user_data = user_id;
-}
+// void intialize_crypto_provider(){
+//     provider.random_func = signal_crypto_random;
+//     provider.hmac_sha256_init_func = signal_hmac_sha256_init;
+//     provider.hmac_sha256_update_func = signal_hmac_sha256_update;
+//     provider.hmac_sha256_final_func = signal_hmac_sha256_final;
+//     provider.hmac_sha256_cleanup_func = signal_hmac_sha256_cleanup;
+//     provider.sha512_digest_init_func = signal_sha512_digest_init;
+//     provider.sha512_digest_update_func = signal_sha512_digest_update;
+//     provider.sha512_digest_final_func = signal_sha512_digest_final;
+//     provider.sha512_digest_cleanup_func = signal_sha512_digest_cleanup;
+//     provider.encrypt_func = signal_encrypt;
+//     provider.decrypt_func = signal_decrypt;
+//     provider.user_data = user_id;
+// }
 
 void lock_func(void *user_data)
 {
@@ -140,28 +140,27 @@ signal_protocol_identity_key_store identity_key_store = {
 void Initialize(){
     int result = 1; //flag for error check
 
-    user_id = 1992;
-    intialize_crypto_provider();
-    pthread_mutexattr_init(&global_mutex_attr);
-    pthread_mutexattr_settype(&global_mutex_attr, PTHREAD_MUTEX_RECURSIVE);
-    pthread_mutex_init(&global_mutex, &global_mutex_attr);
+    intialize_crypto_provider(user_id);
+    // pthread_mutexattr_init(&global_mutex_attr);
+    // pthread_mutexattr_settype(&global_mutex_attr, PTHREAD_MUTEX_RECURSIVE);
+    // pthread_mutex_init(&global_mutex, &global_mutex_attr);
 
-    result = signal_context_create(&global_context, &user_id);
-    if(result != 0)
-        printf("Context Creation Failed\n");
+    // result = signal_context_create(&global_context, &user_id);
+    // if(result != 0)
+    //     printf("Context Creation Failed\n");
 
-    result = signal_context_set_crypto_provider(&global_context, &provider);
-    if(result != 0)
-        printf("Setting Crypto Provider Failed\n");
+    // result = signal_context_set_crypto_provider(&global_context, &provider);
+    // if(result != 0)
+    //     printf("Setting Crypto Provider Failed\n");
 
-    result = signal_context_set_locking_functions(&global_context, lock_func, unlock_func);
-    if(result != 0)
-        printf("Setting Lock Functions Failed\n");
+    // result = signal_context_set_locking_functions(&global_context, lock_func, unlock_func);
+    // if(result != 0)
+    //     printf("Setting Lock Functions Failed\n");
 
-    if(result != 0)
-        printf("Initialization Completed With Erros\n");
-    else
-        printf("Initialization Completed Successfully\n");
+    // if(result != 0)
+    //     printf("Initialization Completed With Erros\n");
+    // else
+    //     printf("Initialization Completed Successfully\n");
 }
 
 void ClientInstall(){
@@ -184,9 +183,11 @@ int main(void)
 {
     printf("Starting Protocol Test\n");
 
+    user_id = 1992;
+
     Initialize();
     
-    ClientInstall();
+    // ClientInstall();
 
     // /* Create the data store context, and add all the callbacks to it */
     // signal_protocol_store_context *store_context;
