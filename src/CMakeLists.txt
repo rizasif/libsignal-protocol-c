@@ -1,4 +1,4 @@
-set(CMAKE_CXX_FLAGS "-pthread")
+set(CMAKE_CXX_FLAGS "-pthread -lssl -lcrypto")
 
 if(BUILD_SHARED_LIBS)
 	find_library(M_LIB m)
