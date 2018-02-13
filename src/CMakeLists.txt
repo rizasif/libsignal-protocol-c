@@ -76,8 +76,8 @@ set(signal_protocol_SRCS
 	device_consistency.c
 	device_consistency.h
 	Codistan/test_protocol.c
-	#Codistan/signal_protocol_helper.c
-	#Codistan/signal_protocol_helper.h
+	Codistan/signal_protocol_helper.c
+	Codistan/signal_protocol_helper.h
 )
 
 #set(codistan_src
