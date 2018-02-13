@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 
-int signal_protocol_helper_signal_crypto_random(signal_context *context, uint8_t *data, size_t len){
+int signal_protocol_helper_signal_crypto_random(uint8_t *data, size_t len, void *user_data){
     printf("in Helper Random Function\n");
     if(RAND_bytes(data, len)) {
         printf("in Helper Random Function: Returning 0\n");
