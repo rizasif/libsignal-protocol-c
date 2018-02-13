@@ -20,7 +20,7 @@ int signal_protocol_helper_signal_crypto_random(uint8_t *data, size_t len, void 
     }
 }
 
-int signal_protocol_helper_signal_hmac_sha256_init(signal_context *context, void **hmac_context, const uint8_t *key, size_t key_len){
+int signal_protocol_helper_signal_hmac_sha256_init(void **hmac_context, const uint8_t *key, size_t key_len, void *user_data){
     #if OPENSSL_VERSION_NUMBER >= 0x1010000fL
     HMAC_CTX *ctx = HMAC_CTX_new();
     if(!ctx) {
@@ -43,13 +43,13 @@ int signal_protocol_helper_signal_hmac_sha256_init(signal_context *context, void
     return 0;
 }
 
-int signal_protocol_helper_signal_hmac_sha256_update(signal_context *context, void *hmac_context, const uint8_t *data, size_t data_len){
+int signal_protocol_helper_signal_hmac_sha256_update(void *hmac_context, const uint8_t *data, size_t data_len, void *user_data){
     HMAC_CTX *ctx = hmac_context;
     int result = HMAC_Update(ctx, data, data_len);
     return (result == 1) ? 0 : -1;
 }
 
-int signal_protocol_helper_signal_hmac_sha256_final(signal_context *context, void *hmac_context, signal_buffer **output){
+int signal_protocol_helper_signal_hmac_sha256_final(void *hmac_context, signal_buffer **output, void *user_data){
     int result = 0;
     unsigned char md[EVP_MAX_MD_SIZE];
     unsigned int len = 0;
@@ -71,7 +71,7 @@ complete:
     return result;
 }
 
-void signal_protocol_helper_signal_hmac_sha256_cleanup(signal_context *context, void *hmac_context){
+void signal_protocol_helper_signal_hmac_sha256_cleanup(void *hmac_context, void *user_data){
     if(hmac_context) {
         HMAC_CTX *ctx = hmac_context;
 #if OPENSSL_VERSION_NUMBER >= 0x1010000fL
@@ -110,7 +110,7 @@ const EVP_CIPHER *aes_cipher(int cipher, size_t key_len)
     return 0;
 }
 
-int signal_protocol_helper_signal_sha512_digest_init(signal_context *context, void **digest_context){
+int signal_protocol_helper_signal_sha512_digest_init(void **digest_context, void *user_data){
     int result = 0;
     EVP_MD_CTX *ctx;
 
@@ -140,7 +140,7 @@ complete:
     return result;
 }
 
-int signal_protocol_helper_signal_sha512_digest_update(signal_context *context, void *digest_context, const uint8_t *data, size_t data_len){
+int signal_protocol_helper_signal_sha512_digest_update(void *digest_context, const uint8_t *data, size_t data_len, void *user_data){
     EVP_MD_CTX *ctx = digest_context;
 
     int result = EVP_DigestUpdate(ctx, data, data_len);
@@ -148,7 +148,7 @@ int signal_protocol_helper_signal_sha512_digest_update(signal_context *context, 
     return (result == 1) ? SG_SUCCESS : SG_ERR_UNKNOWN;
 }
 
-int signal_protocol_helper_signal_sha512_digest_final(signal_context *context, void *digest_context, signal_buffer **output){
+int signal_protocol_helper_signal_sha512_digest_final(void *digest_context, signal_buffer **output, void *user_data){
     int result = 0;
     unsigned char md[EVP_MAX_MD_SIZE];
     unsigned int len = 0;
@@ -184,17 +184,17 @@ complete:
     return result;
 }
 
-void signal_protocol_helper_signal_sha512_digest_cleanup(signal_context *context, void *digest_context){
+void signal_protocol_helper_signal_sha512_digest_cleanup(void *digest_context, void *user_data){
     EVP_MD_CTX *ctx = digest_context;
     EVP_MD_CTX_destroy(ctx);
 }
 
-int signal_protocol_helper_signal_encrypt(signal_context *context,
-        signal_buffer **output,
+int signal_protocol_helper_signal_encrypt(signal_buffer **output,
         int cipher,
         const uint8_t *key, size_t key_len,
         const uint8_t *iv, size_t iv_len,
-        const uint8_t *plaintext, size_t plaintext_len)
+        const uint8_t *plaintext, size_t plaintext_len,
+        void *user_data)
 {
     int result = 0;
     EVP_CIPHER_CTX *ctx = 0;
@@ -288,12 +288,12 @@ complete:
     return result;
 }
 
-int signal_protocol_helper_signal_decrypt(signal_context *context,
-        signal_buffer **output,
+int signal_protocol_helper_signal_decrypt(signal_buffer **output,
         int cipher,
         const uint8_t *key, size_t key_len,
         const uint8_t *iv, size_t iv_len,
-        const uint8_t *ciphertext, size_t ciphertext_len)
+        const uint8_t *ciphertext, size_t ciphertext_len,
+        void *user_data)
 {
     int result = 0;
     EVP_CIPHER_CTX *ctx = 0;
