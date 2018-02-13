@@ -3,6 +3,6 @@
 
 #include "signal_protocol.h"
 
-void intialize_crypto_provider(*signal_crypto_provider provider, int user_id);
+void intialize_crypto_provider(signal_crypto_provider *provider, int user_id);
 
 #endif
