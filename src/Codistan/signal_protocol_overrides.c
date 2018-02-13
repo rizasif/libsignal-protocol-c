@@ -311,7 +311,7 @@ complete:
     return result;
 }
 
-void intialize_crypto_provider(int user_id){
+void intialize_crypto_provider(signal_crypto_provider provider, int user_id){
     provider.random_func = signal_crypto_random;
     provider.hmac_sha256_init_func = signal_hmac_sha256_init;
     provider.hmac_sha256_update_func = signal_hmac_sha256_update;

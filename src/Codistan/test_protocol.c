@@ -140,22 +140,22 @@ signal_protocol_identity_key_store identity_key_store = {
 void Initialize(){
     int result = 1; //flag for error check
 
-    intialize_crypto_provider(user_id);
+    intialize_crypto_provider(&provider, user_id);
     pthread_mutexattr_init(&global_mutex_attr);
     pthread_mutexattr_settype(&global_mutex_attr, PTHREAD_MUTEX_RECURSIVE);
     pthread_mutex_init(&global_mutex, &global_mutex_attr);
 
-    result = signal_context_create(&global_context, &user_id);
-    if(result != 0)
-        printf("Context Creation Failed\n");
+    // result = signal_context_create(&global_context, &user_id);
+    // if(result != 0)
+    //     printf("Context Creation Failed\n");
 
-    result = signal_context_set_crypto_provider(&global_context, &provider);
-    if(result != 0)
-        printf("Setting Crypto Provider Failed\n");
+    // result = signal_context_set_crypto_provider(&global_context, &provider);
+    // if(result != 0)
+    //     printf("Setting Crypto Provider Failed\n");
 
-    result = signal_context_set_locking_functions(&global_context, lock_func, unlock_func);
-    if(result != 0)
-        printf("Setting Lock Functions Failed\n");
+    // result = signal_context_set_locking_functions(&global_context, lock_func, unlock_func);
+    // if(result != 0)
+    //     printf("Setting Lock Functions Failed\n");
 
     if(result != 0)
         printf("Initialization Completed With Erros\n");
