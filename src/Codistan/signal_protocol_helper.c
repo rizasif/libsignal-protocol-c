@@ -10,6 +10,29 @@
 
 #include "uthash.h"
 
+/*
+ * This is an implementation of Jenkin's "One-at-a-Time" hash.
+ *
+ * http://www.burtleburtle.net/bob/hash/doobs.html
+ *
+ * It is used to simplify using our new string recipient IDs
+ * as part of our keys without having to significantly modify the
+ * testing-only implementations of our data stores.
+ */
+int64_t jenkins_hash(const char *key, size_t len)
+{
+    uint64_t hash, i;
+    for(hash = i = 0; i < len; ++i) {
+        hash += key[i];
+        hash += (hash << 10);
+        hash ^= (hash >> 6);
+    }
+    hash += (hash << 3);
+    hash ^= (hash >> 11);
+    hash += (hash << 15);
+    return hash;
+}
+
 int signal_protocol_helper_signal_crypto_random(uint8_t *data, size_t len, void *user_data){
     if(RAND_bytes(data, len)) {
         return 0;
