@@ -19,7 +19,7 @@ session_signed_pre_key *signed_pre_key;
 //variables
 signal_crypto_provider provider;
 signal_protocol_session_store session_store;
-signal_protocol_pre_key_store pre_key_store
+signal_protocol_pre_key_store pre_key_store;
 
 // Customizations
 int user_id;
