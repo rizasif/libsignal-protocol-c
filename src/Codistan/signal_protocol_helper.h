@@ -43,4 +43,13 @@ void signal_protocol_helper_session_store_destroy(void *user_data);
 
 void setup_signal_protocol_helper_session_store(signal_protocol_store_context *context);
 
+/* pre-key store */
+int signal_protocol_helper_pre_key_store_load_pre_key(signal_buffer **record, uint32_t pre_key_id, void *user_data);
+int signal_protocol_helper_pre_key_store_store_pre_key(uint32_t pre_key_id, uint8_t *record, size_t record_len, void *user_data);
+int signal_protocol_helper_pre_key_store_contains_pre_key(uint32_t pre_key_id, void *user_data);
+int signal_protocol_helper_pre_key_store_remove_pre_key(uint32_t pre_key_id, void *user_data);
+void signal_protocol_helper_pre_key_store_destroy(void *user_data);
+
+void setup_signal_protocol_helper_pre_key_store(signal_protocol_store_context *context);
+
 #endif
