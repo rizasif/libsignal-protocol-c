@@ -32,4 +32,15 @@ int signal_protocol_helper_signal_decrypt(signal_buffer **output,
 
 void signal_protocol_helper_intialize_crypto_provider(signal_crypto_provider *provider, int user_id);
 
+/* session store */
+int signal_protocol_helper_session_store_load_session(signal_buffer **record, const signal_protocol_address *address, void *user_data);
+int signal_protocol_helper_session_store_get_sub_device_sessions(signal_int_list **sessions, const char *name, size_t name_len, void *user_data);
+int signal_protocol_helper_session_store_store_session(const signal_protocol_address *address, uint8_t *record, size_t record_len, void *user_data);
+int signal_protocol_helper_session_store_contains_session(const signal_protocol_address *address, void *user_data);
+int signal_protocol_helper_session_store_delete_session(const signal_protocol_address *address, void *user_data);
+int signal_protocol_helper_session_store_delete_all_sessions(const char *name, size_t name_len, void *user_data);
+void signal_protocol_helper_session_store_destroy(void *user_data);
+
+void setup_signal_protocol_helper_session_store(signal_protocol_store_context *context);
+
 #endif
