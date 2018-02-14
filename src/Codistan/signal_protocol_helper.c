@@ -8,6 +8,8 @@
 
 #include <stdio.h>
 
+#include "uthash.h"
+
 int signal_protocol_helper_signal_crypto_random(uint8_t *data, size_t len, void *user_data){
     if(RAND_bytes(data, len)) {
         return 0;
