@@ -145,11 +145,11 @@ int main(void)
     printf("Identity Key Store Context Set\n");
 
     // /* Instantiate a session_builder for a recipient address. */
-    // signal_protocol_address address = {
-    //     "+14159998888", 12, 1
-    // };
-    // session_builder *builder;
-    // session_builder_create(&builder, store_context, &address, global_context);
+    signal_protocol_address address = {
+        "+14159998888", 12, 1
+    };
+    session_builder *builder;
+    session_builder_create(&builder, store_context, &address, global_context);
 
     /*Server Job*/
     
