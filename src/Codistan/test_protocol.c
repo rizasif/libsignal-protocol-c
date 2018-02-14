@@ -21,6 +21,7 @@ signal_crypto_provider provider;
 signal_protocol_session_store session_store;
 signal_protocol_pre_key_store pre_key_store;
 signal_protocol_signed_pre_key_store signed_pre_key_store;
+signal_protocol_identity_key_store identity_key_store;
 
 // Customizations
 int user_id;
@@ -50,40 +51,6 @@ unsigned long long getCurrentEpochTime(){
     // printf("%llu\n", millisecondsSinceEpoch);
     return millisecondsSinceEpoch;
 }
-
-// /*Start Signed pre key store*/
-// int test_signed_pre_key_store_load_signed_pre_key(signal_buffer **record, uint32_t signed_pre_key_id, void *user_data){return 0;}
-// int test_signed_pre_key_store_store_signed_pre_key(uint32_t signed_pre_key_id, uint8_t *record, size_t record_len, void *user_data){return 0;}
-// int test_signed_pre_key_store_contains_signed_pre_key(uint32_t signed_pre_key_id, void *user_data){return 0;}
-// int test_signed_pre_key_store_remove_signed_pre_key(uint32_t signed_pre_key_id, void *user_data){return 0;}
-// void test_signed_pre_key_store_destroy(void *user_data){}
-
-// signal_protocol_signed_pre_key_store signed_pre_key_store = {
-//             .load_signed_pre_key = test_signed_pre_key_store_load_signed_pre_key,
-//             .store_signed_pre_key = test_signed_pre_key_store_store_signed_pre_key,
-//             .contains_signed_pre_key = test_signed_pre_key_store_contains_signed_pre_key,
-//             .remove_signed_pre_key = test_signed_pre_key_store_remove_signed_pre_key,
-//             .destroy_func = test_signed_pre_key_store_destroy,
-//             .user_data = 0
-//     };
-// /*End Signed pre key store*/
-
-/*Start Identity Key Store*/
-int test_identity_key_store_get_identity_key_pair(signal_buffer **public_data, signal_buffer **private_data, void *user_data){return 0;}
-int test_identity_key_store_get_local_registration_id(void *user_data, uint32_t *registration_id){return 0;}
-int test_identity_key_store_save_identity(const signal_protocol_address *address, uint8_t *key_data, size_t key_len, void *user_data){return 0;}
-int test_identity_key_store_is_trusted_identity(const signal_protocol_address *address, uint8_t *key_data, size_t key_len, void *user_data){return 0;}
-void test_identity_key_store_destroy(void *user_data){}
-
-signal_protocol_identity_key_store identity_key_store = {
-            .get_identity_key_pair = test_identity_key_store_get_identity_key_pair,
-            .get_local_registration_id = test_identity_key_store_get_local_registration_id,
-            .save_identity = test_identity_key_store_save_identity,
-            .is_trusted_identity = test_identity_key_store_is_trusted_identity,
-            .destroy_func = test_identity_key_store_destroy,
-            .user_data = 0
-    };
-/*End Identity Key Store*/
 
 /*Main Functions Start*/
 
@@ -171,7 +138,11 @@ int main(void)
     signal_protocol_store_context_set_signed_pre_key_store(store_context, &signed_pre_key_store);
     printf("Signed Pre Key Store Context Set\n");
 
-    // signal_protocol_store_context_set_identity_key_store(store_context, &identity_key_store);
+    setup_signal_protocol_helper_identity_key_store(store_context, global_context);
+    printf("Identity Key Store Created\n");
+
+    signal_protocol_store_context_set_identity_key_store(store_context, &identity_key_store);
+    printf("Identity Key Store Context Set\n");
 
     // /* Instantiate a session_builder for a recipient address. */
     // signal_protocol_address address = {
