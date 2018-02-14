@@ -191,7 +191,7 @@ int main(void)
     signal_protocol_store_context_create(&store_context, global_context);
     printf("Store Context Created\n");
 
-    setup_signal_protocol_helper_session_store(&store_context);
+    setup_signal_protocol_helper_session_store(store_context);
     printf("Session Store Created\n");
 
     signal_protocol_store_context_set_session_store(store_context, &session_store);
