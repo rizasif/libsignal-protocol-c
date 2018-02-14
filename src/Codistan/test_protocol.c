@@ -154,9 +154,14 @@ void ClientInstall(){
     signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, global_context);
     printf("Identity Key Pair Generated\n");
 
-    // signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
-    // signal_protocol_key_helper_generate_pre_keys(&pre_keys_head, 0, 100, global_context);
-    // signal_protocol_key_helper_generate_signed_pre_key(&signed_pre_key, identity_key_pair, 5, getCurrentEpochTime(), global_context);
+    signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
+    printf("Registration ID Generated\n");
+
+    signal_protocol_key_helper_generate_pre_keys(&pre_keys_head, 0, 100, global_context);
+    printf("Pre Keys Generated\n");
+    
+    signal_protocol_key_helper_generate_signed_pre_key(&signed_pre_key, identity_key_pair, 5, getCurrentEpochTime(), global_context);
+    printf("Signed Pre Key Generated\n");
 
     /* Store identity_key_pair somewhere durable and safe. */
     /* Store registration_id somewhere durable and safe. */
