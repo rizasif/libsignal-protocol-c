@@ -20,6 +20,7 @@ session_signed_pre_key *signed_pre_key;
 signal_crypto_provider provider;
 signal_protocol_session_store session_store;
 signal_protocol_pre_key_store pre_key_store;
+signal_protocol_signed_pre_key_store signed_pre_key_store;
 
 // Customizations
 int user_id;
@@ -50,39 +51,22 @@ unsigned long long getCurrentEpochTime(){
     return millisecondsSinceEpoch;
 }
 
-/*Start Signed pre key store*/
-int test_signed_pre_key_store_load_signed_pre_key(signal_buffer **record, uint32_t signed_pre_key_id, void *user_data){return 0;}
-int test_signed_pre_key_store_store_signed_pre_key(uint32_t signed_pre_key_id, uint8_t *record, size_t record_len, void *user_data){return 0;}
-int test_signed_pre_key_store_contains_signed_pre_key(uint32_t signed_pre_key_id, void *user_data){return 0;}
-int test_signed_pre_key_store_remove_signed_pre_key(uint32_t signed_pre_key_id, void *user_data){return 0;}
-void test_signed_pre_key_store_destroy(void *user_data){}
+// /*Start Signed pre key store*/
+// int test_signed_pre_key_store_load_signed_pre_key(signal_buffer **record, uint32_t signed_pre_key_id, void *user_data){return 0;}
+// int test_signed_pre_key_store_store_signed_pre_key(uint32_t signed_pre_key_id, uint8_t *record, size_t record_len, void *user_data){return 0;}
+// int test_signed_pre_key_store_contains_signed_pre_key(uint32_t signed_pre_key_id, void *user_data){return 0;}
+// int test_signed_pre_key_store_remove_signed_pre_key(uint32_t signed_pre_key_id, void *user_data){return 0;}
+// void test_signed_pre_key_store_destroy(void *user_data){}
 
-signal_protocol_signed_pre_key_store signed_pre_key_store = {
-            .load_signed_pre_key = test_signed_pre_key_store_load_signed_pre_key,
-            .store_signed_pre_key = test_signed_pre_key_store_store_signed_pre_key,
-            .contains_signed_pre_key = test_signed_pre_key_store_contains_signed_pre_key,
-            .remove_signed_pre_key = test_signed_pre_key_store_remove_signed_pre_key,
-            .destroy_func = test_signed_pre_key_store_destroy,
-            .user_data = 0
-    };
-/*End Signed pre key store*/
-
-/*Start Pre Key Store*/
-// int test_pre_key_store_load_pre_key(signal_buffer **record, uint32_t pre_key_id, void *user_data){return 0;}
-// int test_pre_key_store_store_pre_key(uint32_t pre_key_id, uint8_t *record, size_t record_len, void *user_data){return 0;}
-// int test_pre_key_store_contains_pre_key(uint32_t pre_key_id, void *user_data){return 0;}
-// int test_pre_key_store_remove_pre_key(uint32_t pre_key_id, void *user_data){return 0;}
-// void test_pre_key_store_destroy(void *user_data){}
-
-// signal_protocol_pre_key_store pre_key_store = {
-//         .load_pre_key = test_pre_key_store_load_pre_key,
-//         .store_pre_key = test_pre_key_store_store_pre_key,
-//         .contains_pre_key = test_pre_key_store_contains_pre_key,
-//         .remove_pre_key = test_pre_key_store_remove_pre_key,
-//         .destroy_func = test_pre_key_store_destroy,
-//         .user_data = 0
+// signal_protocol_signed_pre_key_store signed_pre_key_store = {
+//             .load_signed_pre_key = test_signed_pre_key_store_load_signed_pre_key,
+//             .store_signed_pre_key = test_signed_pre_key_store_store_signed_pre_key,
+//             .contains_signed_pre_key = test_signed_pre_key_store_contains_signed_pre_key,
+//             .remove_signed_pre_key = test_signed_pre_key_store_remove_signed_pre_key,
+//             .destroy_func = test_signed_pre_key_store_destroy,
+//             .user_data = 0
 //     };
-/*End Pre Key Store*/
+// /*End Signed pre key store*/
 
 /*Start Identity Key Store*/
 int test_identity_key_store_get_identity_key_pair(signal_buffer **public_data, signal_buffer **private_data, void *user_data){return 0;}
@@ -181,7 +165,12 @@ int main(void)
     signal_protocol_store_context_set_pre_key_store(store_context, &pre_key_store);
     printf("Pre Key Store Context Set\n");
     
-    // signal_protocol_store_context_set_signed_pre_key_store(store_context, &signed_pre_key_store);
+    setup_signal_protocol_helper_signed_pre_key_store(store_context);
+    printf("Signed Pre Key Store Created\n");
+
+    signal_protocol_store_context_set_signed_pre_key_store(store_context, &signed_pre_key_store);
+    printf("Signed Pre Key Store Context Set\n");
+
     // signal_protocol_store_context_set_identity_key_store(store_context, &identity_key_store);
 
     // /* Instantiate a session_builder for a recipient address. */

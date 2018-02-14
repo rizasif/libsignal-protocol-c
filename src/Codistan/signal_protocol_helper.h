@@ -52,4 +52,13 @@ void signal_protocol_helper_pre_key_store_destroy(void *user_data);
 
 void setup_signal_protocol_helper_pre_key_store(signal_protocol_store_context *context);
 
+/* signed pre-key store */
+int signal_protocol_helper_signed_pre_key_store_load_signed_pre_key(signal_buffer **record, uint32_t signed_pre_key_id, void *user_data);
+int signal_protocol_helper_signed_pre_key_store_store_signed_pre_key(uint32_t signed_pre_key_id, uint8_t *record, size_t record_len, void *user_data);
+int signal_protocol_helper_signed_pre_key_store_contains_signed_pre_key(uint32_t signed_pre_key_id, void *user_data);
+int signal_protocol_helper_signed_pre_key_store_remove_signed_pre_key(uint32_t signed_pre_key_id, void *user_data);
+void signal_protocol_helper_signed_pre_key_store_destroy(void *user_data);
+
+void setup_signal_protocol_helper_signed_pre_key_store(signal_protocol_store_context *context);
+
 #endif
