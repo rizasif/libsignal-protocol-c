@@ -101,62 +101,62 @@ void Initialize(int *user_id,
         printf("Initialization Completed Successfully\n");
 }
 
-void ClientInstall(){
-    printf("Starting Client Installation\n");
+// void ClientInstall(){
+//     printf("Starting Client Installation\n");
 
-    signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, global_context);
-    printf("Identity Key Pair Generated\n");
+//     signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, global_context);
+//     printf("Identity Key Pair Generated\n");
 
-    signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
-    printf("Registration ID Generated\n");
+//     signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
+//     printf("Registration ID Generated\n");
 
-    signal_protocol_key_helper_generate_pre_keys(&pre_keys_head, 0, 100, global_context);
-    printf("Pre Keys Generated\n");
+//     signal_protocol_key_helper_generate_pre_keys(&pre_keys_head, 0, 100, global_context);
+//     printf("Pre Keys Generated\n");
     
-    signal_protocol_key_helper_generate_signed_pre_key(&signed_pre_key, identity_key_pair, 5, getCurrentEpochTime(), global_context);
-    printf("Signed Pre Key Generated\n");
+//     signal_protocol_key_helper_generate_signed_pre_key(&signed_pre_key, identity_key_pair, 5, getCurrentEpochTime(), global_context);
+//     printf("Signed Pre Key Generated\n");
 
-    /* Store identity_key_pair somewhere durable and safe. */
-    /* Store registration_id somewhere durable and safe. */
+//     /* Store identity_key_pair somewhere durable and safe. */
+//     /* Store registration_id somewhere durable and safe. */
 
-    /* Store pre keys in the pre key store. */
-    /* Store signed pre key in the signed pre key store. */
+//     /* Store pre keys in the pre key store. */
+//     /* Store signed pre key in the signed pre key store. */
 
-    printf("Client Installation Completed Successfully\n");
-}
+//     printf("Client Installation Completed Successfully\n");
+// }
 
-void GenerateKeys(){
-    /* Create the data store context, and add all the callbacks to it */
-    signal_protocol_store_context *store_context;
-    signal_protocol_store_context_create(&store_context, global_context);
-    printf("Store Context Created\n");
+// void GenerateKeys(){
+//     /* Create the data store context, and add all the callbacks to it */
+//     signal_protocol_store_context *store_context;
+//     signal_protocol_store_context_create(&store_context, global_context);
+//     printf("Store Context Created\n");
 
-    setup_signal_protocol_helper_session_store(store_context);
-    printf("Session Store Created\n");
+//     setup_signal_protocol_helper_session_store(store_context);
+//     printf("Session Store Created\n");
 
-    signal_protocol_store_context_set_session_store(store_context, &session_store);
-    printf("Session Store Context Set\n");
+//     signal_protocol_store_context_set_session_store(store_context, &session_store);
+//     printf("Session Store Context Set\n");
 
-    setup_signal_protocol_helper_pre_key_store(store_context);
-    printf("Pre Key Store Created\n");
+//     setup_signal_protocol_helper_pre_key_store(store_context);
+//     printf("Pre Key Store Created\n");
 
-    signal_protocol_store_context_set_pre_key_store(store_context, &pre_key_store);
-    printf("Pre Key Store Context Set\n");
+//     signal_protocol_store_context_set_pre_key_store(store_context, &pre_key_store);
+//     printf("Pre Key Store Context Set\n");
     
-    setup_signal_protocol_helper_signed_pre_key_store(store_context);
-    printf("Signed Pre Key Store Created\n");
+//     setup_signal_protocol_helper_signed_pre_key_store(store_context);
+//     printf("Signed Pre Key Store Created\n");
 
-    signal_protocol_store_context_set_signed_pre_key_store(store_context, &signed_pre_key_store);
-    printf("Signed Pre Key Store Context Set\n");
+//     signal_protocol_store_context_set_signed_pre_key_store(store_context, &signed_pre_key_store);
+//     printf("Signed Pre Key Store Context Set\n");
 
-    setup_signal_protocol_helper_identity_key_store(store_context, global_context);
-    printf("Identity Key Store Created\n");
+//     setup_signal_protocol_helper_identity_key_store(store_context, global_context);
+//     printf("Identity Key Store Created\n");
 
-    signal_protocol_store_context_set_identity_key_store(store_context, &identity_key_store);
-    printf("Identity Key Store Context Set\n");
+//     signal_protocol_store_context_set_identity_key_store(store_context, &identity_key_store);
+//     printf("Identity Key Store Context Set\n");
 
-    printf("Key Generation Completed");
-}
+//     printf("Key Generation Completed");
+// }
 
 /*Main Functions End*/
 
