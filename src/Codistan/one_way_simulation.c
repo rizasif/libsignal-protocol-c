@@ -83,7 +83,7 @@ void Initialize(int *user_id,
 
     signal_protocol_helper_intialize_crypto_provider(provider, user_id);
 
-    result = signal_context_create(global_context, &user_id);
+    result = signal_context_create(*global_context, user_id);
     if(result != 0)
         printf("Context Creation Failed\n");
 
@@ -101,20 +101,21 @@ void Initialize(int *user_id,
         printf("Initialization Completed Successfully\n");
 }
 
-// void ClientInstall(){
+// void ClientInstall( ratchet_identity_key_pair *identity_key_pair
+//                     signal_context **global_context){
 //     printf("Starting Client Installation\n");
 
-//     signal_protocol_key_helper_generate_identity_key_pair(&identity_key_pair, global_context);
+//     signal_protocol_key_helper_generate_identity_key_pair(identity_key_pair, global_context);
 //     printf("Identity Key Pair Generated\n");
 
-//     signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
-//     printf("Registration ID Generated\n");
+//     // signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
+//     // printf("Registration ID Generated\n");
 
-//     signal_protocol_key_helper_generate_pre_keys(&pre_keys_head, 0, 100, global_context);
-//     printf("Pre Keys Generated\n");
+//     // signal_protocol_key_helper_generate_pre_keys(&pre_keys_head, 0, 100, global_context);
+//     // printf("Pre Keys Generated\n");
     
-//     signal_protocol_key_helper_generate_signed_pre_key(&signed_pre_key, identity_key_pair, 5, getCurrentEpochTime(), global_context);
-//     printf("Signed Pre Key Generated\n");
+//     // signal_protocol_key_helper_generate_signed_pre_key(&signed_pre_key, identity_key_pair, 5, getCurrentEpochTime(), global_context);
+//     // printf("Signed Pre Key Generated\n");
 
 //     /* Store identity_key_pair somewhere durable and safe. */
 //     /* Store registration_id somewhere durable and safe. */
