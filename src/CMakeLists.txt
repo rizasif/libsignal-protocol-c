@@ -149,5 +149,5 @@ add_executable(hello Codistan/hello_libsignal.c)
 add_executable(codistan_test Codistan/test_protocol.c)
 target_link_libraries(codistan_test signal-protocol-c m ${LIBS})
 
-add_executable(codistan_one_way Codistan/Codistan/one_way_simulation.c)
+add_executable(codistan_one_way Codistan/one_way_simulation.c)
 target_link_libraries(codistan_one_way signal-protocol-c m ${LIBS})
