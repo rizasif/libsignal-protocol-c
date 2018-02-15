@@ -134,6 +134,13 @@ void GenerateKeys(){
     signal_protocol_store_context_set_identity_key_store(store_context, &identity_key_store);
     printf("Identity Key Store Context Set\n");
 
+    /* Instantiate a session_builder for a recipient address. */
+    signal_protocol_address address = {
+        "+14159998888", 12, 1
+    };
+    session_builder *builder;
+    session_builder_create(&builder, store_context, &address, global_context);
+
     printf("Key Generation Completed");
 }
 
@@ -151,12 +158,6 @@ int main(void)
 
     GenerateKeys();
 
-    /* Instantiate a session_builder for a recipient address. */
-    signal_protocol_address address = {
-        "+14159998888", 12, 1
-    };
-    session_builder *builder;
-    session_builder_create(&builder, store_context, &address, global_context);
 
     printf("Ending Protocol Test\n");
     return 0;
