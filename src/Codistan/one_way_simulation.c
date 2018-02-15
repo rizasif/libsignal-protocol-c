@@ -87,13 +87,13 @@ void Initialize(int user_id,
     if(result != 0)
         printf("Context Creation Failed\n");
 
-    // result = signal_context_set_crypto_provider(global_context, provider);
-    // if(result != 0)
-    //     printf("Setting Crypto Provider Failed\n");
+    result = signal_context_set_crypto_provider(*global_context, provider);
+    if(result != 0)
+        printf("Setting Crypto Provider Failed\n");
 
-    // result = signal_context_set_locking_functions(global_context, lock_func, unlock_func);
-    // if(result != 0)
-    //     printf("Setting Lock Functions Failed\n");
+    result = signal_context_set_locking_functions(*global_context, lock_func, unlock_func);
+    if(result != 0)
+        printf("Setting Lock Functions Failed\n");
 
     if(result != 0)
         printf("Initialization Completed With Erros\n");
