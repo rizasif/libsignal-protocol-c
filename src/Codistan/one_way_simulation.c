@@ -75,7 +75,7 @@ unsigned long long getCurrentEpochTime(){
 
 /*Main Functions Start*/
 
-void Initialize(int *user_id, 
+void Initialize(int user_id, 
                 signal_crypto_provider *provider,
                 signal_context *global_context)
 {
@@ -83,17 +83,17 @@ void Initialize(int *user_id,
 
     signal_protocol_helper_intialize_crypto_provider(provider, user_id);
 
-    result = signal_context_create(global_context, user_id);
-    if(result != 0)
-        printf("Context Creation Failed\n");
+    // result = signal_context_create(global_context, &user_id);
+    // if(result != 0)
+    //     printf("Context Creation Failed\n");
 
-    result = signal_context_set_crypto_provider(global_context, provider);
-    if(result != 0)
-        printf("Setting Crypto Provider Failed\n");
+    // result = signal_context_set_crypto_provider(global_context, provider);
+    // if(result != 0)
+    //     printf("Setting Crypto Provider Failed\n");
 
-    result = signal_context_set_locking_functions(global_context, lock_func, unlock_func);
-    if(result != 0)
-        printf("Setting Lock Functions Failed\n");
+    // result = signal_context_set_locking_functions(global_context, lock_func, unlock_func);
+    // if(result != 0)
+    //     printf("Setting Lock Functions Failed\n");
 
     if(result != 0)
         printf("Initialization Completed With Erros\n");
@@ -179,7 +179,7 @@ int main(void)
     };
 
     printf("Initializaing Irene\n");
-    Initialize(&user_id_irene, &provider_irene, global_context_irene);
+    Initialize(user_id_irene, &provider_irene, global_context_irene);
 
     // printf("Installing Client Irene\n");
     // ClientInstall(identity_key_pair_irene, registration_id_irene, pre_keys_head_irene, signed_pre_key_irene);
