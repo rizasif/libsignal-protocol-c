@@ -204,9 +204,10 @@ int main(void)
     printf("Generating Keys Roy\n");
     GenerateKeys(&store_context_roy, &session_store_roy,&pre_key_store_roy, &signed_pre_key_store_roy, &identity_key_store_roy, &global_context_roy);
 
-    /*Building Session by Irene*/
-    // session_builder *builder;
-    // session_builder_create(&builder, store_context, &address, global_context);
+    /*Building Session by Irene to Roy*/
+    printf("Irene Building Session");
+    session_builder *builder;
+    session_builder_create(&builder, store_context_irene, &address_irene, global_context_irene);
 
     printf("Ending One Way Simulation\n");
     return 0;
