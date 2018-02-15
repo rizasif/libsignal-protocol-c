@@ -78,6 +78,7 @@ set(signal_protocol_SRCS
 	Codistan/test_protocol.c
 	Codistan/signal_protocol_helper.c
 	Codistan/signal_protocol_helper.h
+	Codistan/one_way_simulation.c
 )
 
 #set(codistan_src
@@ -147,3 +148,6 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.pc DESTINATION "$
 add_executable(hello Codistan/hello_libsignal.c)
 add_executable(codistan_test Codistan/test_protocol.c)
 target_link_libraries(codistan_test signal-protocol-c m ${LIBS})
+
+add_executable(codistan_one_way Codistan/Codistan/one_way_simulation.c)
+target_link_libraries(codistan_one_way signal-protocol-c m ${LIBS})

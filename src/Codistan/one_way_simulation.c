@@ -1,5 +1,5 @@
-#ifndef CODISTAN_TEST_SIGNAL_PROTOCOL
-#define CODISTAN_TEST_SIGNAL_PROTOCOL
+#ifndef CODISTAN_ONE_WAY_SIMULATION
+#define CODISTAN_ONE_WAY_SIMULATION
 
 #include <stdio.h>
 #include <check.h>
@@ -9,23 +9,44 @@
 #include "signal_protocol.h"
 #include "signal_protocol_helper.h"
 
-// Signal Protocol
-signal_context *global_context;
-ratchet_identity_key_pair *identity_key_pair;
-uint32_t registration_id;
-signal_protocol_key_helper_pre_key_list_node *pre_keys_head;
-session_signed_pre_key *signed_pre_key;
+/*
+* This Simulation sends a message between two identities Irene and Roy
+* Irene: Initiatior
+* Roy: Recepient
+*/
 
-//variables
-signal_crypto_provider provider;
-signal_protocol_session_store session_store;
-signal_protocol_pre_key_store pre_key_store;
-signal_protocol_signed_pre_key_store signed_pre_key_store;
-signal_protocol_identity_key_store identity_key_store;
+// Irene
+int user_id_irene;
 
-// Customizations
-int user_id;
+signal_context *global_context_irene;
+ratchet_identity_key_pair *identity_key_pair_irene;
+uint32_t registration_id_irene;
+signal_protocol_key_helper_pre_key_list_node *pre_keys_head_irene;
+session_signed_pre_key *signed_pre_key_irene;
 
+signal_crypto_provider provider_irene;
+signal_protocol_session_store session_store_irene;
+signal_protocol_pre_key_store pre_key_store_irene;
+signal_protocol_signed_pre_key_store signed_pre_key_store_irene;
+signal_protocol_identity_key_store identity_key_store_irene;
+
+// Roy
+// int user_id_roy;
+// signal_protocol_address address_roy;
+
+// signal_context *global_context_roy;
+// ratchet_identity_key_pair *identity_key_pair_roy;
+// uint32_t registration_id_roy;
+// signal_protocol_key_helper_pre_key_list_node *pre_keys_head_roy;
+// session_signed_pre_key *signed_pre_key_roy;
+
+// signal_crypto_provider provider_roy;
+// signal_protocol_session_store session_store_roy;
+// signal_protocol_pre_key_store pre_key_store_roy;
+// signal_protocol_signed_pre_key_store signed_pre_key_store_roy;
+// signal_protocol_identity_key_store identity_key_store_roy;
+
+/* Common Functions */
 pthread_mutex_t global_mutex;
 pthread_mutexattr_t global_mutex_attr;
 
@@ -54,13 +75,13 @@ unsigned long long getCurrentEpochTime(){
 
 /*Main Functions Start*/
 
-void Initialize(){
+void Initialize(int *user_id, 
+                signal_crypto_provider *provider,
+                signal_context **global_context,)
+{
     int result = 1; //flag for error check
 
     signal_protocol_helper_intialize_crypto_provider(&provider, user_id);
-    pthread_mutexattr_init(&global_mutex_attr);
-    pthread_mutexattr_settype(&global_mutex_attr, PTHREAD_MUTEX_RECURSIVE);
-    pthread_mutex_init(&global_mutex, &global_mutex_attr);
 
     result = signal_context_create(&global_context, &user_id);
     if(result != 0)
@@ -141,24 +162,25 @@ void GenerateKeys(){
 
 int main(void)
 {
-    printf("Starting Protocol Test\n");
+    printf("Starting One Way Simulation\n");
 
-    user_id = 1992;
+    pthread_mutexattr_init(&global_mutex_attr);
+    pthread_mutexattr_settype(&global_mutex_attr, PTHREAD_MUTEX_RECURSIVE);
+    pthread_mutex_init(&global_mutex, &global_mutex_attr);
 
-    Initialize();
-    
-    ClientInstall();
-
-    GenerateKeys();
-
-    /* Instantiate a session_builder for a recipient address. */
+    printf("Setting Up Irene\n");
+    user_id_irene = 1991;
     signal_protocol_address address = {
         "+14159998888", 12, 1
     };
-    session_builder *builder;
-    session_builder_create(&builder, store_context, &address, global_context);
 
-    printf("Ending Protocol Test\n");
+    printf("Initializaing Irene\n");
+    Initialize(&user_id_irene, &provider_irene, &global_context_irene);
+
+    // ClientInstall();
+    // GenerateKeys();
+
+    printf("Ending One Way Simulation\n");
     return 0;
 }
 
