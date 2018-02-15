@@ -182,7 +182,7 @@ int main(void)
     Initialize(user_id_irene, &provider_irene, &global_context_irene);
 
     printf("Installing Client Irene\n");
-    ClientInstall(identity_key_pair_irene, registration_id_irene, pre_keys_head_irene, signed_pre_key_irene, global_context_irene);
+    ClientInstall(&identity_key_pair_irene, &registration_id_irene, &pre_keys_head_irene, &signed_pre_key_irene, &global_context_irene);
 
     // GenerateKeys();
 
