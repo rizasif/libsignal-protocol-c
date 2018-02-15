@@ -77,7 +77,7 @@ unsigned long long getCurrentEpochTime(){
 
 void Initialize(int *user_id, 
                 signal_crypto_provider *provider,
-                signal_context **global_context,)
+                signal_context **global_context)
 {
     int result = 1; //flag for error check
 
