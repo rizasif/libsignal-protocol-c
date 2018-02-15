@@ -77,13 +77,13 @@ unsigned long long getCurrentEpochTime(){
 
 void Initialize(int *user_id, 
                 signal_crypto_provider *provider,
-                signal_context **global_context)
+                signal_context *global_context)
 {
     int result = 1; //flag for error check
 
-    signal_protocol_helper_intialize_crypto_provider(provider, user_id);
+    signal_protocol_helper_intialize_crypto_provider(provider, *user_id);
 
-    result = signal_context_create(*global_context, user_id);
+    result = signal_context_create(global_context, *user_id);
     if(result != 0)
         printf("Context Creation Failed\n");
 
@@ -176,7 +176,7 @@ int main(void)
     };
 
     printf("Initializaing Irene\n");
-    Initialize(&user_id_irene, &provider_irene, &global_context_irene);
+    Initialize(&user_id_irene, &provider_irene, global_context_irene);
     printf("Initializaing Irene Complete\n");
 
     // ClientInstall();
