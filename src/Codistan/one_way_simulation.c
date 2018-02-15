@@ -83,9 +83,9 @@ void Initialize(int user_id,
 
     signal_protocol_helper_intialize_crypto_provider(provider, user_id);
 
-    // result = signal_context_create(global_context, &user_id);
-    // if(result != 0)
-    //     printf("Context Creation Failed\n");
+    result = signal_context_create(global_context, &user_id);
+    if(result != 0)
+        printf("Context Creation Failed\n");
 
     // result = signal_context_set_crypto_provider(global_context, provider);
     // if(result != 0)
