@@ -179,17 +179,27 @@ int main(void)
 
     printf("Setting Up Irene\n");
     user_id_irene = 1991;
-    signal_protocol_address address = {
+    signal_protocol_address address_irene = {
         "+14159998888", 12, 1
     };
-
     printf("Initializaing Irene\n");
     Initialize(user_id_irene, &provider_irene, &global_context_irene);
-
     printf("Installing Client Irene\n");
     ClientInstall(&identity_key_pair_irene, &registration_id_irene, &pre_keys_head_irene, &signed_pre_key_irene, &global_context_irene);
-
+    printf("Generating Keys Irene\n");
     GenerateKeys(&session_store_irene,&pre_key_store_irene, &signed_pre_key_store_irene, &identity_key_store_irene, &global_context_irene);
+
+    printf("Setting Up Roy\n");
+    user_id_roy = 1992;
+    signal_protocol_address address_roy = {
+        "+14159998889", 12, 2
+    };
+    printf("Initializaing Roy\n");
+    Initialize(user_id_roy, &provider_roy, &global_context_roy);
+    printf("Installing Client Roy\n");
+    ClientInstall(&identity_key_pair_roy, &registration_id_roy, &pre_keys_head_roy, &signed_pre_key_roy, &global_context_roy);
+    printf("Generating Keys Roy\n");
+    GenerateKeys(&session_store_roy,&pre_key_store_roy, &signed_pre_key_store_roy, &identity_key_store_roy, &global_context_roy);
 
     printf("Ending One Way Simulation\n");
     return 0;
