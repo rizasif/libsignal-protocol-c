@@ -101,14 +101,14 @@ void Initialize(int user_id,
         printf("Initialization Completed Successfully\n");
 }
 
-void ClientInstall( ratchet_identity_key_pair *identity_key_pair,
-                    uint32_t *registration_id,
-                    signal_protocol_key_helper_pre_key_list_node *pre_keys_head,
-                    session_signed_pre_key *signed_pre_key,
-                    signal_context *global_context){
+void ClientInstall( ratchet_identity_key_pair **identity_key_pair,
+                    uint32_t **registration_id,
+                    signal_protocol_key_helper_pre_key_list_node **pre_keys_head,
+                    session_signed_pre_key **signed_pre_key,
+                    signal_context **global_context){
     printf("Starting Client Installation\n");
 
-    signal_protocol_key_helper_generate_identity_key_pair(identity_key_pair, global_context);
+    signal_protocol_key_helper_generate_identity_key_pair(*identity_key_pair, *global_context);
     printf("Identity Key Pair Generated\n");
 
     // signal_protocol_key_helper_generate_registration_id(&registration_id, 0, global_context);
@@ -181,8 +181,8 @@ int main(void)
     printf("Initializaing Irene\n");
     Initialize(user_id_irene, &provider_irene, &global_context_irene);
 
-    // printf("Installing Client Irene\n");
-    // ClientInstall(identity_key_pair_irene, registration_id_irene, pre_keys_head_irene, signed_pre_key_irene, global_context_irene);
+    printf("Installing Client Irene\n");
+    ClientInstall(identity_key_pair_irene, registration_id_irene, pre_keys_head_irene, signed_pre_key_irene, global_context_irene);
 
     // GenerateKeys();
 
