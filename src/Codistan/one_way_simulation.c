@@ -31,20 +31,19 @@ signal_protocol_signed_pre_key_store signed_pre_key_store_irene;
 signal_protocol_identity_key_store identity_key_store_irene;
 
 // Roy
-// int user_id_roy;
-// signal_protocol_address address_roy;
+int user_id_roy;
 
-// signal_context *global_context_roy;
-// ratchet_identity_key_pair *identity_key_pair_roy;
-// uint32_t registration_id_roy;
-// signal_protocol_key_helper_pre_key_list_node *pre_keys_head_roy;
-// session_signed_pre_key *signed_pre_key_roy;
+signal_context *global_context_roy;
+ratchet_identity_key_pair *identity_key_pair_roy;
+uint32_t registration_id_roy;
+signal_protocol_key_helper_pre_key_list_node *pre_keys_head_roy;
+session_signed_pre_key *signed_pre_key_roy;
 
-// signal_crypto_provider provider_roy;
-// signal_protocol_session_store session_store_roy;
-// signal_protocol_pre_key_store pre_key_store_roy;
-// signal_protocol_signed_pre_key_store signed_pre_key_store_roy;
-// signal_protocol_identity_key_store identity_key_store_roy;
+signal_crypto_provider provider_roy;
+signal_protocol_session_store session_store_roy;
+signal_protocol_pre_key_store pre_key_store_roy;
+signal_protocol_signed_pre_key_store signed_pre_key_store_roy;
+signal_protocol_identity_key_store identity_key_store_roy;
 
 /* Common Functions */
 pthread_mutex_t global_mutex;
@@ -164,7 +163,7 @@ void GenerateKeys(  signal_protocol_session_store *session_store,
     signal_protocol_store_context_set_identity_key_store(store_context, identity_key_store);
     printf("Identity Key Store Context Set\n");
 
-    printf("Key Generation Completed");
+    printf("Key Generation Completed\n");
 }
 
 /*Main Functions End*/
