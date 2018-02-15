@@ -176,6 +176,7 @@ int main(void)
 
     printf("Initializaing Irene\n");
     Initialize(&user_id_irene, &provider_irene, &global_context_irene);
+    printf("Initializaing Irene Complete\n");
 
     // ClientInstall();
     // GenerateKeys();
