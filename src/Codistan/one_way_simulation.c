@@ -76,7 +76,7 @@ unsigned long long getCurrentEpochTime(){
 /*Main Functions Start*/
 
 void Initialize(int *user_id, 
-                signal_crypto_provider provider,
+                signal_crypto_provider *provider,
                 signal_context *global_context)
 {
     int result = 1; //flag for error check
@@ -175,7 +175,7 @@ int main(void)
     };
 
     printf("Initializaing Irene\n");
-    Initialize(&user_id_irene, provider_irene, global_context_irene);
+    Initialize(&user_id_irene, &provider_irene, global_context_irene);
     printf("Initializaing Irene Complete\n");
 
     // ClientInstall();
