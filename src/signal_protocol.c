@@ -672,8 +672,10 @@ int signal_protocol_store_context_set_identity_key_store(signal_protocol_store_c
     if(!store) {
         return SG_ERR_INVAL;
     }
-    memcpy(&(context->identity_key_store), store, sizeof(signal_protocol_identity_key_store));
-    assert(&(context->identity_key_store).get_local_registration_id);
+    // memcpy(&(context->identity_key_store), store, sizeof(signal_protocol_identity_key_store));
+    // assert(&(context->identity_key_store).get_local_registration_id);
+    memcpy(context->identity_key_store, store, sizeof(signal_protocol_identity_key_store));
+    assert(context->identity_key_store.get_local_registration_id);
     return 0;
 }
 
@@ -1059,8 +1061,8 @@ int signal_protocol_identity_get_local_registration_id(signal_protocol_store_con
     assert(&(context->identity_key_store).get_local_registration_id);
     assert(&(context->identity_key_store).user_data);
 
-    result = (&(context->identity_key_store).get_local_registration_id(
-            &(context->identity_key_store).user_data, registration_id));
+    result = (context->identity_key_store).get_local_registration_id(
+            &(context->identity_key_store).user_data, registration_id);
 
     printf("DEBUG: Local reg achieved");
 
