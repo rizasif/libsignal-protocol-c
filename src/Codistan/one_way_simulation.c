@@ -248,7 +248,7 @@ int main(void)
     }
 
     signal_buffer *signature = 0;
-    result = curve_calculate_signature(global_context, &signature,
+    result = curve_calculate_signature(global_context_irene, &signature,
             ratchet_identity_key_pair_get_private(roy_identity_key_pair),
             signal_buffer_data(roy_signed_pre_key_public_serialized),
             signal_buffer_len(roy_signed_pre_key_public_serialized));
