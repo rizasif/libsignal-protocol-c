@@ -218,7 +218,7 @@ int main(void)
 
     uint32_t roy_pre_key_id = 1947;
     uint32_t roy_local_registration_id = 19911;
-    result = signal_protocol_identity_get_local_registration_id(store_context_roy, &roy_local_registration_id);
+    result = signal_protocol_identity_get_local_registration_id(&store_context_roy, &roy_local_registration_id);
     if(result != 0){
         printf("Local id Generation Failed\n");
     }
