@@ -1058,8 +1058,8 @@ int signal_protocol_identity_get_local_registration_id(signal_protocol_store_con
     assert(context);
     assert(&(context->identity_key_store).get_local_registration_id);
 
-    result = (&(context->identity_key_store).get_local_registration_id(
-            &(context->identity_key_store).user_data, registration_id));
+    result = (&(context->identity_key_store)).get_local_registration_id(
+            &(context->identity_key_store).user_data, registration_id);
 
     return result;
 }
