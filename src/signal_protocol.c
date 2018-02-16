@@ -673,6 +673,7 @@ int signal_protocol_store_context_set_identity_key_store(signal_protocol_store_c
         return SG_ERR_INVAL;
     }
     memcpy(&(context->identity_key_store), store, sizeof(signal_protocol_identity_key_store));
+    assert(context->identity_key_store.get_local_registration_id);
     return 0;
 }
 

@@ -212,7 +212,7 @@ int main(void)
     session_builder *builder;
     session_builder_create(&builder, store_context_irene, &address_irene, global_context_irene);
 
-    printf("----Irene Processing Pre Key Bundle----");
+    printf("----Irene Processing Pre Key Bundle----\n");
 
     int result = 0;
 
