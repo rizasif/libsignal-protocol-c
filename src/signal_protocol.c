@@ -1061,6 +1061,8 @@ int signal_protocol_identity_get_local_registration_id(signal_protocol_store_con
     result = context->identity_key_store.get_local_registration_id(
             &(context->identity_key_store).user_data, registration_id);
 
+    printf("DEBUG: Local reg achieved");
+
     return result;
 }
 
