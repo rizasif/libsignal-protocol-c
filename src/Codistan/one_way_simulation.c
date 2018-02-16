@@ -9,6 +9,9 @@
 #include "signal_protocol.h"
 #include "signal_protocol_helper.h"
 
+#include "curve.h"
+#include "ratchet.h"
+
 /*
 * This Simulation sends a message between two identities Irene and Roy
 * Irene: Initiatior
@@ -205,9 +208,71 @@ int main(void)
     GenerateKeys(&store_context_roy, &session_store_roy,&pre_key_store_roy, &signed_pre_key_store_roy, &identity_key_store_roy, &global_context_roy);
 
     /*Building Session by Irene to Roy*/
-    printf("Irene Building Session");
+    printf("Irene Building Session\n");
     session_builder *builder;
     session_builder_create(&builder, store_context_irene, &address_irene, global_context_irene);
+
+    printf("----Irene Processing Pre Key Bundle----");
+
+    int result = 0;
+
+    uint32_t roy_pre_key_id = 1947;
+    uint32_t roy_local_registration_id = 19911;
+    result = signal_protocol_identity_get_local_registration_id(roy_store, &roy_local_registration_id);
+    if(result != 0){
+        printf("Local id Generation Failed\n");
+    }
+
+    ec_key_pair *roy_pre_key_pair = 0;
+    result = curve_generate_key_pair(global_context_irene, &roy_pre_key_pair);
+    if(result != 0){
+        printf("Cureve Key Pair Generation Failed\n");
+    }
+
+    ratchet_identity_key_pair *roy_identity_key_pair = 0;
+    result = signal_protocol_identity_get_key_pair(store_context_roy, &roy_identity_key_pair);
+    if(result != 0){
+        printf("Identity Key Pair Generation Failed\n");
+    }
+
+    ec_key_pair *roy_signed_pre_key = 0;
+    result = curve_generate_key_pair(global_context, &roy_signed_pre_key);
+    if(result != 0){
+        printf("Signed Pre-Key Generation Failed\n");
+    }
+
+    signal_buffer *roy_signed_pre_key_public_serialized = 0;
+    result = ec_public_key_serialize(&roy_signed_pre_key_public_serialized, ec_key_pair_get_public(roy_signed_pre_key));
+    if(result != 0){
+        printf("Signed Pre-Key Serialization Failed\n");
+    }
+
+    signal_buffer *signature = 0;
+    result = curve_calculate_signature(global_context, &signature,
+            ratchet_identity_key_pair_get_private(roy_identity_key_pair),
+            signal_buffer_data(roy_signed_pre_key_public_serialized),
+            signal_buffer_len(roy_signed_pre_key_public_serialized));
+    if(result != 0){
+        printf("Curve Signature Generation Failed\n");
+    }
+
+    uint32_t roy_signed_pre_key_id = (rand() & 0x7FFFFFFF) % PRE_KEY_MEDIUM_MAX_VALUE;
+
+    session_pre_key_bundle *roy_pre_key_bundle = 0;
+    result = session_pre_key_bundle_create(&roy_pre_key_bundle,
+            roy_local_registration_id,
+            address_roy.device_id, /* device ID */
+            roy_pre_key_id, /* pre key ID */
+            ec_key_pair_get_public(roy_pre_key_pair),
+            roy_signed_pre_key_id, ec_key_pair_get_public(roy_signed_pre_key), 
+            signal_buffer_data(signature), signal_buffer_len(signature), /* no signed pre key or signature */
+            ratchet_identity_key_pair_get_public(roy_identity_key_pair));
+    if(result != 0){
+        printf("Pre-Key Bundle Generation Failed\n");
+    }
+
+    /* Build a session with a pre key retrieved from the server. */
+    session_builder_process_pre_key_bundle(builder, roy_pre_key_bundle);
 
     printf("Ending One Way Simulation\n");
     return 0;
