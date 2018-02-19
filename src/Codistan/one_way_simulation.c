@@ -44,7 +44,7 @@ uint32_t registration_id_roy;
 signal_protocol_key_helper_pre_key_list_node *pre_keys_head_roy;
 session_signed_pre_key *signed_pre_key_roy;
 
-signal_protocol_store_context *store_context_roy;
+signal_protocol_store_context store_context_roy;
 signal_crypto_provider provider_roy;
 signal_protocol_session_store session_store_roy;
 signal_protocol_pre_key_store pre_key_store_roy;
@@ -134,7 +134,7 @@ void ClientInstall( ratchet_identity_key_pair **identity_key_pair,
     printf("Client Installation Completed Successfully\n");
 }
 
-void GenerateKeys(  signal_protocol_store_context **store_context,
+void GenerateKeys(  signal_protocol_store_context *store_context,
                     signal_protocol_session_store *session_store,
                     signal_protocol_pre_key_store *pre_key_store,
                     signal_protocol_signed_pre_key_store *signed_pre_key_store,
@@ -142,31 +142,31 @@ void GenerateKeys(  signal_protocol_store_context **store_context,
                     signal_context **global_context){
 
     /* Create the data store context, and add all the callbacks to it */
-    signal_protocol_store_context_create(store_context, *global_context);
+    signal_protocol_store_context_create(&store_context, *global_context);
     printf("Store Context Created\n");
 
-    setup_signal_protocol_helper_session_store(*store_context);
+    setup_signal_protocol_helper_session_store(store_context);
     printf("Session Store Created\n");
 
-    signal_protocol_store_context_set_session_store(*store_context, session_store);
+    signal_protocol_store_context_set_session_store(store_context, session_store);
     printf("Session Store Context Set\n");
 
-    setup_signal_protocol_helper_pre_key_store(*store_context);
+    setup_signal_protocol_helper_pre_key_store(store_context);
     printf("Pre Key Store Created\n");
 
-    signal_protocol_store_context_set_pre_key_store(*store_context, pre_key_store);
+    signal_protocol_store_context_set_pre_key_store(store_context, pre_key_store);
     printf("Pre Key Store Context Set\n");
     
-    setup_signal_protocol_helper_signed_pre_key_store(*store_context);
+    setup_signal_protocol_helper_signed_pre_key_store(store_context);
     printf("Signed Pre Key Store Created\n");
 
-    signal_protocol_store_context_set_signed_pre_key_store(*store_context, signed_pre_key_store);
+    signal_protocol_store_context_set_signed_pre_key_store(store_context, signed_pre_key_store);
     printf("Signed Pre Key Store Context Set\n");
 
-    setup_signal_protocol_helper_identity_key_store(*store_context, *global_context);
+    setup_signal_protocol_helper_identity_key_store(store_context, *global_context);
     printf("Identity Key Store Created\n");
 
-    signal_protocol_store_context_set_identity_key_store(*store_context, identity_key_store);
+    signal_protocol_store_context_set_identity_key_store(store_context, identity_key_store);
     printf("Identity Key Store Context Set\n");
 
     printf("Key Generation Completed\n");
@@ -218,16 +218,16 @@ int main(void)
     int result = 0;
 
     //Just checking
-    setup_signal_protocol_helper_identity_key_store(store_context_roy, global_context_roy);
+    setup_signal_protocol_helper_identity_key_store(&store_context_roy, global_context_roy);
     printf("Identity Key Store Created\n");
 
-    signal_protocol_store_context_set_identity_key_store(store_context_roy, &identity_key_store_roy);
+    signal_protocol_store_context_set_identity_key_store(&store_context_roy, &identity_key_store_roy);
     printf("Identity Key Store Context Set\n");
     //Just Ending
 
     uint32_t roy_pre_key_id = 1947;
     uint32_t roy_local_registration_id = 0;
-    result = signal_protocol_identity_get_local_registration_id(store_context_roy, &roy_local_registration_id);
+    result = signal_protocol_identity_get_local_registration_id(&store_context_roy, &roy_local_registration_id);
     if(result != 0){
         printf("Local id Generation Failed\n");
     }

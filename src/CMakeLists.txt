@@ -146,6 +146,7 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.pc DESTINATION "$
 
 # Codistan
 add_executable(hello Codistan/hello_libsignal.c)
+
 add_executable(codistan_test Codistan/test_protocol.c)
 target_link_libraries(codistan_test signal-protocol-c m ${LIBS})
 
