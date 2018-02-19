@@ -1056,14 +1056,17 @@ int signal_protocol_identity_get_local_registration_id(signal_protocol_store_con
     printf("DEBUG: Starting local reg id fetch\n");
     int result = 0;
 
+    // assert(context);
+    // assert(&(context->identity_key_store).get_local_registration_id);
+    // assert(&(context->identity_key_store).user_data);
+    
     assert(context);
-    assert(&(context->identity_key_store).get_local_registration_id);
-    assert(&(context->identity_key_store).user_data);
+    assert(context->identity_key_store.get_local_registration_id);
     printf("DEBUG: All Assertions Passed\n");
 
     void *user_data = &(context->identity_key_store).user_data;
     result = context->identity_key_store.get_local_registration_id(
-            &user_data, &registration_id);
+            user_data, registration_id);
 
     // result = (context->identity_key_store).get_local_registration_id(
     //         (context->identity_key_store).user_data, registration_id);
