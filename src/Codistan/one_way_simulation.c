@@ -9,8 +9,8 @@
 #include "signal_protocol.h"
 #include "signal_protocol_helper.h"
 
-#include "curve.h"
-#include "ratchet.h"
+// #include "curve.h"
+// #include "ratchet.h"
 
 /*
 * This Simulation sends a message between two identities Irene and Roy
@@ -217,8 +217,8 @@ int main(void)
     int result = 0;
 
     uint32_t roy_pre_key_id = 1947;
-    uint32_t roy_local_registration_id;
-    result = signal_protocol_identity_get_local_registration_id(*store_context_roy, &roy_local_registration_id);
+    uint32_t roy_local_registration_id = 0;
+    result = signal_protocol_identity_get_local_registration_id(store_context_roy, &roy_local_registration_id);
     if(result != 0){
         printf("Local id Generation Failed\n");
     }
