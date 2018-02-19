@@ -1053,6 +1053,7 @@ complete:
 
 int signal_protocol_identity_get_local_registration_id(signal_protocol_store_context *context, uint32_t *registration_id)
 {
+    printf("DEBUG: Starting local reg id fetch");
     int result = 0;
 
     assert(context);
