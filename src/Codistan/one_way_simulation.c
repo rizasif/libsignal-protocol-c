@@ -8,6 +8,7 @@
 
 #include "signal_protocol.h"
 #include "signal_protocol_helper.h"
+#include "key_helper.h"
 
 // #include "curve.h"
 // #include "ratchet.h"
