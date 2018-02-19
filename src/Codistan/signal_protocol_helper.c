@@ -868,9 +868,9 @@ int signal_protocol_helper_identity_key_store_get_identity_key_pair(signal_buffe
 int signal_protocol_helper_identity_key_store_get_local_registration_id(void *user_data, uint32_t *registration_id)
 {
     printf("DEBUG: gettig local id");
-    signal_protocol_helper_identity_store_data *data = user_data;
+    // signal_protocol_helper_identity_store_data *data = user_data;
     printf("DEBUG: user data added");
-    *registration_id = data->local_registration_id;
+    // *registration_id = data->local_registration_id;
     printf("DEBUG: reg id set");
     return 0;
 }
