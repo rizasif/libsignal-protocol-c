@@ -106,7 +106,7 @@ void Initialize(int user_id,
 }
 
 void ClientInstall( ratchet_identity_key_pair **identity_key_pair,
-                    uint32_t **registration_id,
+                    uint32_t *registration_id,
                     signal_protocol_key_helper_pre_key_list_node **pre_keys_head,
                     session_signed_pre_key **signed_pre_key,
                     signal_context **global_context){
