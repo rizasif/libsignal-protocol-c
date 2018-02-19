@@ -188,12 +188,12 @@ int main(void)
     signal_protocol_address address_irene = {
         "+14159998888", 12, 1
     };
-    printf("Initializaing Irene\n");
-    Initialize(user_id_irene, &provider_irene, &global_context_irene);
-    printf("Installing Client Irene\n");
-    ClientInstall(&identity_key_pair_irene, &registration_id_irene, &pre_keys_head_irene, &signed_pre_key_irene, &global_context_irene);
-    printf("Generating Keys Irene\n");
-    GenerateKeys(&store_context_irene, &session_store_irene,&pre_key_store_irene, &signed_pre_key_store_irene, &identity_key_store_irene, &global_context_irene);
+    // printf("Initializaing Irene\n");
+    // Initialize(user_id_irene, &provider_irene, &global_context_irene);
+    // printf("Installing Client Irene\n");
+    // ClientInstall(&identity_key_pair_irene, &registration_id_irene, &pre_keys_head_irene, &signed_pre_key_irene, &global_context_irene);
+    // printf("Generating Keys Irene\n");
+    // GenerateKeys(&store_context_irene, &session_store_irene,&pre_key_store_irene, &signed_pre_key_store_irene, &identity_key_store_irene, &global_context_irene);
 
     /* Roy Setup */
     printf("Setting Up Roy\n");
@@ -209,9 +209,9 @@ int main(void)
     GenerateKeys(&store_context_roy, &session_store_roy,&pre_key_store_roy, &signed_pre_key_store_roy, &identity_key_store_roy, &global_context_roy);
 
     /*Building Session by Irene to Roy*/
-    printf("Irene Building Session\n");
-    session_builder *builder;
-    session_builder_create(&builder, store_context_irene, &address_irene, global_context_irene);
+    // printf("Irene Building Session\n");
+    // session_builder *builder;
+    // session_builder_create(&builder, store_context_irene, &address_irene, global_context_irene);
 
     printf("----Irene Processing Pre Key Bundle----\n");
 
