@@ -1063,6 +1063,7 @@ int signal_protocol_identity_get_local_registration_id(signal_protocol_store_con
     //         &(context->identity_key_store).user_data, registration_id);
 
     signal_protocol_identity_key_store store = context->identity_key_store;
+    printf("DEBUG: Identity Key Store Created");
     result = store.get_local_registration_id(
             &(store.user_data), &registration_id);
 
