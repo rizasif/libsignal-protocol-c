@@ -214,14 +214,14 @@ int main(void)
 
     printf("----Irene Processing Pre Key Bundle----\n");
 
-    // int result = 0;
+    int result = 0;
 
     uint32_t roy_pre_key_id = 1947;
     uint32_t roy_local_registration_id = 0;
     // result = signal_protocol_identity_get_local_registration_id(store_context_roy, &roy_local_registration_id);
-    // if(result != 0){
-    //     printf("Local id Generation Failed\n");
-    // }
+    if(result != 0){
+        printf("Local id Generation Failed\n");
+    }
 
     // ec_key_pair *roy_pre_key_pair = 0;
     // result = curve_generate_key_pair(global_context_irene, &roy_pre_key_pair);
