@@ -217,10 +217,10 @@ int main(void)
     int result = 0;
 
     //Just checking
-    setup_signal_protocol_helper_identity_key_store(store_context_roy, global_context_roy);
+    setup_signal_protocol_helper_identity_key_store(&store_context_roy, global_context_roy);
     printf("Identity Key Store Created\n");
 
-    signal_protocol_store_context_set_identity_key_store(store_context_roy, &identity_key_store_roy);
+    signal_protocol_store_context_set_identity_key_store(&store_context_roy, &identity_key_store_roy);
     printf("Identity Key Store Context Set\n");
     //Just Ending
 
