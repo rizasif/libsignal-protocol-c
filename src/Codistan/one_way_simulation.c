@@ -216,6 +216,14 @@ int main(void)
 
     int result = 0;
 
+    //Just checking
+    setup_signal_protocol_helper_identity_key_store(store_context_roy, global_context_roy);
+    printf("Identity Key Store Created\n");
+
+    signal_protocol_store_context_set_identity_key_store(store_context_roy, identity_key_store_roy);
+    printf("Identity Key Store Context Set\n");
+    //Just Ending
+
     uint32_t roy_pre_key_id = 1947;
     uint32_t roy_local_registration_id = 0;
     result = signal_protocol_identity_get_local_registration_id(store_context_roy, &roy_local_registration_id);
