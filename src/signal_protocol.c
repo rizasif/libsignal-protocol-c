@@ -1061,7 +1061,9 @@ int signal_protocol_identity_get_local_registration_id(signal_protocol_store_con
     // assert(&(context->identity_key_store).user_data);
     
     assert(context);
-    assert(context->identity_key_store.get_local_registration_id);
+    printf(context);
+    printf(&context);
+    assert(&(context->identity_key_store).get_local_registration_id);
     printf("DEBUG: All Assertions Passed\n");
 
     // void *user_data = &(context->identity_key_store).user_data;
