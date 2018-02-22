@@ -1,0 +1,1 @@
+/usr/bin/cc   -fmessage-length=0 -Wall -Wmissing-field-initializers -Wno-missing-braces -Wparentheses -Wsign-compare -Wsign-conversion -g   CMakeFiles/hello.dir/Codistan/hello_libsignal.c.o  -o hello -rdynamic 

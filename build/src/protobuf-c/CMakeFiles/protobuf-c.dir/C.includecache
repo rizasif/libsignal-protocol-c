@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/rizasif/encryption/libsignal-protocol-c/src/protobuf-c/protobuf-c.c
+stdlib.h
+-
+string.h
+-
+protobuf-c.h
+/home/rizasif/encryption/libsignal-protocol-c/src/protobuf-c/protobuf-c.h
+
+/home/rizasif/encryption/libsignal-protocol-c/src/protobuf-c/protobuf-c.h
+assert.h
+-
+limits.h
+-
+stddef.h
+-
+stdint.h
+-
+

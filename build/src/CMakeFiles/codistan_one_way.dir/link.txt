@@ -1,0 +1,1 @@
+/usr/bin/cc   -fmessage-length=0 -Wall -Wmissing-field-initializers -Wno-missing-braces -Wparentheses -Wsign-compare -Wsign-conversion -g   CMakeFiles/codistan_one_way.dir/Codistan/one_way_simulation.c.o  -o codistan_one_way -rdynamic libsignal-protocol-c.a -lm -lssl -lcrypto -lpthread -ldl libsignal-protocol-c.a 
