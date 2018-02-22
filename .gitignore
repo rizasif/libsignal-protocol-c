@@ -1,9 +1,9 @@
 # Compiled source
 #build/
-*.o
-*.so
-*.so.*
-*.a
+#*.o
+#*.so
+#*.so.*
+#*.a
 
 # IDE-related files
 
